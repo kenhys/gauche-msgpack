@@ -9,22 +9,22 @@
 (select-module messagepack.pack)
 
 ;; Loads extension
-;;(dynamic-load "messagepack")
+;;(dynamic-load "msgpack--pack")
 
 ;;
 ;; Put your Scheme definitions here
 ;;
-typedef int (*msgpack_packer_write)(void* data, const char* buf, unsigned int len);
+;; typedef int (*msgpack_packer_write)(void* data, const char* buf, unsigned int len);
 
-typedef struct msgpack_packer {
-	void* data;
-	msgpack_packer_write callback;
-} msgpack_packer;
+;; typedef struct msgpack_packer {
+;; 	void* data;
+;; 	msgpack_packer_write callback;
+;; } msgpack_packer;
 
-static void msgpack_packer_init(msgpack_packer* pk, void* data, msgpack_packer_write callback);
+;; static void msgpack_packer_init(msgpack_packer* pk, void* data, msgpack_packer_write callback);
 
-static msgpack_packer* msgpack_packer_new(void* data, msgpack_packer_write callback);
-static void msgpack_packer_free(msgpack_packer* pk);
+;; static msgpack_packer* msgpack_packer_new(void* data, msgpack_packer_write callback);
+;; static void msgpack_packer_free(msgpack_packer* pk);
 
 (define (msgpack_pack_short pk::<msgpack-packer> d::<short>)
   (error ""))
