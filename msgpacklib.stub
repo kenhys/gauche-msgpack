@@ -4,6 +4,7 @@
 
 "
 #include \"msgpack.h\"
+#include \"msgpack/object.h\"
 "
 
 ;; The following entry is a dummy one.
@@ -11,6 +12,15 @@
 
 (define-cproc test-msgpack () ::<const-cstring>
   (result "messagepack is working"))
+
+(define-enum MSGPACK_OBJECT_NIL)
+(define-enum MSGPACK_OBJECT_BOOLEAN)
+(define-enum MSGPACK_OBJECT_POSITIVE_INTEGER)
+(define-enum MSGPACK_OBJECT_NEGATIVE_INTEGER)
+(define-enum MSGPACK_OBJECT_DOUBLE)
+(define-enum MSGPACK_OBJECT_RAW)
+(define-enum MSGPACK_OBJECT_ARRAY)
+(define-enum MSGPACK_OBJECT_MAP)
 
 
 ;; Local variables:

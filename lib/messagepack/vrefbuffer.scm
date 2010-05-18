@@ -2,11 +2,11 @@
 ;;; msgpack
 ;;;
 
-(define-module messagepack.vrebuffer
+(define-module messagepack.vrefbuffer
   (export test-messagepack ;; dummy
           )
   )
-(select-module messagepack.vrebuffer)
+(select-module messagepack.vrefbuffer)
 
 ;; Loads extension
 ;;(dynamic-load "messagepack")

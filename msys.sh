@@ -16,10 +16,10 @@ CB_TEST=0
 CB_TEST_SCM=""
 CB_LIBTEST=0
 
-MSGPACK_INC=""
+MSGPACK_INC="-I/mingw/include"
 MSGPACK_LIB="-lmsgpack -lmsgpackc"
 
-CFLAGS="-DHAVE_BOOL "
+CFLAGS="-DHAVE_BOOL $MSGPACK_INC"
 
 
 function cb_build ()
@@ -30,13 +30,13 @@ function cb_build ()
     if [ $? -ne 0 ]; then
         exit
     fi
-    com="gcc -c msgpacklib_head.c -I$GDIST_INCDIR"
+    com="gcc -c msgpacklib_head.c -I$GDIST_INCDIR $MSGPACK_INC"
     echo $com
     eval $com
     if [ $? -ne 0 ]; then
         exit
     fi
-    com="gcc -c msgpacklib_tail.c -I$GDIST_INCDIR"
+    com="gcc -c msgpacklib_tail.c -I$GDIST_INCDIR $MSGPACK_INC"
     echo $com
     eval $com
     if [ $? -ne 0 ]; then

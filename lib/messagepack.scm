@@ -7,15 +7,14 @@
   (use messagepack.pack)
   (use messagepack.sbuffer)
   (use messagepack.unpack)
-  (use messagepack.vrebuffer)
+  (use messagepack.vrefbuffer)
   (use messagepack.zone)
-  (export test-messagepack ;; dummy
-          )
+  (export-all)
   )
 (select-module messagepack)
 
 ;; Loads extension
-(dynamic-load "messagepack")
+(dynamic-load "msgpack")
 
 ;;
 ;; Put your Scheme definitions here
