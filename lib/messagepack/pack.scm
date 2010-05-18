@@ -2,14 +2,14 @@
 ;;; msgpack
 ;;;
 
-(define-module messagepack
+(define-module messagepack.pack
   (export test-messagepack ;; dummy
           )
   )
-(select-module messagepack)
+(select-module messagepack.pack)
 
 ;; Loads extension
-(dynamic-load "messagepack")
+;;(dynamic-load "messagepack")
 
 ;;
 ;; Put your Scheme definitions here
