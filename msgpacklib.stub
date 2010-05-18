@@ -10,7 +10,7 @@
 ;; Replace it for your definitions.
 
 (define-cproc test-msgpack () ::<const-cstring>
-  (result "msgpack is working"))
+  (result "messagepack is working"))
 
 
 ;; Local variables:
