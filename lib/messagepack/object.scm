@@ -3,8 +3,7 @@
 ;;;
 
 (define-module messagepack.object
-  (export test-messagepack ;; dummy
-          )
+  (export-all)
   )
 (select-module messagepack.object)
 
