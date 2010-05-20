@@ -2,7 +2,7 @@
  * msgpack.c
  */
 
-#include "msgpack.h"
+#include "msgpacklib.h"
 
 /*
  * The following function is a dummy one; replace it for
