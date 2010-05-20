@@ -9,14 +9,14 @@
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
 
-(define-constant MSGPACK_OBJECT_NIL 0)
-(define-constant MSGPACK_OBJECT_BOOLEAN 1)
-(define-constant MSGPACK_OBJECT_POSITIVE_INTEGER 2)
-(define-constant MSGPACK_OBJECT_NEGATIVE_INTEGER 3)
-(define-constant MSGPACK_OBJECT_DOUBLE 4)
-(define-constant MSGPACK_OBJECT_RAW 5)
-(define-constant MSGPACK_OBJECT_ARRAY 6)
-(define-constant MSGPACK_OBJECT_MAP 7)
+(define-enum MSGPACK_OBJECT_NIL)
+(define-enum MSGPACK_OBJECT_BOOLEAN)
+(define-enum MSGPACK_OBJECT_POSITIVE_INTEGER)
+(define-enum MSGPACK_OBJECT_NEGATIVE_INTEGER)
+(define-enum MSGPACK_OBJECT_DOUBLE)
+(define-enum MSGPACK_OBJECT_RAW)
+(define-enum MSGPACK_OBJECT_ARRAY)
+(define-enum MSGPACK_OBJECT_MAP)
 
 (define-type <msgpack-object-array> "msgpack_object_array*" "msgpack_object_array"
   "MSGPACK_OBJECT_ARRAY_P" "MSGPACK_OBJECT_ARRAY_UNBOX" "MSGPACK_OBJECT_ARRAY_BOX")
