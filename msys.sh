@@ -3,8 +3,10 @@
 
 GOSH=gosh
 
-VERSION=0.9.1_pre1
-VERSION=0.9
+if [ -z "$VERSION" ]; then
+    VERSION=0.9.1_pre1
+    VERSION=0.9
+fi
 
 if [ "$VERSION" = "0.9" ]; then
     GDIST_DIR=/c/apps/Gauche-mingw-0.9
@@ -99,7 +101,7 @@ function cb_build ()
     fi
     #OBJS="msgpack.o msgpacklib.o msgpacklib_head.o msgpacklib_tail.o"
     OBJS="msgpack*.o"
-    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack.dll $OBJS  -L. $MSGPACK_LIB -L$GDIST_LIBDIR $LIBGAUCHE -lws2_32 -lshlwapi"
+    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` messagepack.dll $OBJS  -L. $MSGPACK_LIB -L$GDIST_LIBDIR $LIBGAUCHE -lws2_32 -lshlwapi"
     echo $com
     eval $com
     if [ $? -ne 0 ]; then

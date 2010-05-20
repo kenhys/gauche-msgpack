@@ -13,11 +13,12 @@
 (define-type <msgpack-sbuffer> "msgpack_sbuffer*" "msgpack-sbuffer"
   "MSGPACK_SBUFFER_P" "MSGPACK_SBUFFER_UNBOX" "MSGPACK_SBUFFER_BOX")
 
-;; static inline void msgpack_sbuffer_init(msgpack_sbuffer* sbuf)
+;;; static inline void msgpack_sbuffer_init(msgpack_sbuffer* sbuf)
 (define-cproc msgpack-sbuffer-init
   (sbuf) ::<void>
   (body <void>
-        "msgpack_sbuffer *pbuf = MSGPACK_SBUFFER_UNBOX(sbuf);"
+        "/*msgpack_sbuffer *pbuf = MSGPACK_SBUFFER_UNBOX(sbuf);*/"
+        "msgpack_sbuffer *pbuf = SCM_FOREIGN_POINTER_REF(MsgPackSbufferClass*, sbuf);"
         "msgpack_sbuffer_init(pbuf);"))
 
 ;; static inline void msgpack_sbuffer_destroy(msgpack_sbuffer* sbuf)
