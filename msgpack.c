@@ -9,8 +9,11 @@
  * your C function definitions.
  */
 
-extern ScmClass *MsgPackObjectArrayClass;
-extern ScmClass *MsgPackObjectClass;
+ScmClass *MsgPackObjectArrayClass;
+ScmClass *MsgPackObjectClass;
+ScmClass *MsgPackPackerClass;
+ScmClass *MsgPackUnPackerClass;
+ScmClass *MsgPackSbufferClass;
 
 /*
  * Module initialization function.
@@ -33,6 +36,13 @@ void Scm_Init_msgpack(void)
     /* Create the module if it doesn't exist yet. */
     mod = SCM_MODULE(SCM_FIND_MODULE("messagepack", TRUE));
 
+    MsgPackSbufferClass =
+        Scm_MakeForeignPointerClass(mod, "<msgpack-sbuffer>",
+                                    NULL,
+                                    NULL,
+                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
+
+    
     /* Register stub-generated procedures */
     Scm_Init_msgpacklib(mod);
 

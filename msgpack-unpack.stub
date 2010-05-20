@@ -3,27 +3,91 @@
 ;;;
 
 "
-#include <msgpack.h>
-#include \"msgpack.h\"
+#include \"msgpacklib.h\"
 "
+
+(define-enum MSGPACK_UNPACK_SUCCESS)
+(define-enum MSGPACK_UNPACK_EXTRA_BYTES)
+(define-enum MSGPACK_UNPACK_CONTINUE)
+(define-enum MSGPACK_UNPACK_PARSE_ERROR)
+
+(define-type <msgpack-unpacker> "msgpack_unpacker*" "msgpack_unpacker"
+  "MSGPACK_UNPACKER_P" "MSGPACK_UNPACKER_UNBOX" "MSGPACK_UNPACKER_BOX")
+
+;; bool msgpack_unpacker_init(msgpack_unpacker* mpac, size_t initial_buffer_size);
+;; void msgpack_unpacker_destroy(msgpack_unpacker* mpac);
+
+;; msgpack_unpacker* msgpack_unpacker_new(size_t initial_buffer_size);
+;; void msgpack_unpacker_free(msgpack_unpacker* mpac);
+
+;; static inline bool   msgpack_unpacker_reserve_buffer(msgpack_unpacker* mpac, size_t size);
+;; static inline char*  msgpack_unpacker_buffer(msgpack_unpacker* mpac);
+;; static inline size_t msgpack_unpacker_buffer_capacity(const msgpack_unpacker* mpac);
+;; static inline void   msgpack_unpacker_buffer_consumed(msgpack_unpacker* mpac, size_t size);
+
+
+;; int msgpack_unpacker_execute(msgpack_unpacker* mpac);
+
+;; msgpack_object msgpack_unpacker_data(msgpack_unpacker* mpac);
+
+;; msgpack_zone* msgpack_unpacker_release_zone(msgpack_unpacker* mpac);
+
+;; void msgpack_unpacker_reset_zone(msgpack_unpacker* mpac);
+
+;; void msgpack_unpacker_reset(msgpack_unpacker* mpac);
+
+;; static inline size_t msgpack_unpacker_message_size(const msgpack_unpacker* mpac);
+
+;; msgpack_unpack_return
+;; msgpack_unpack(const char* data, size_t len, size_t* off,
+;; 		msgpack_zone* z, msgpack_object* result);
+
+
+;; static inline size_t msgpack_unpacker_parsed_size(const msgpack_unpacker* mpac);
+
+;; bool msgpack_unpacker_flush_zone(msgpack_unpacker* mpac);
+
+;; bool msgpack_unpacker_expand_buffer(msgpack_unpacker* mpac, size_t size);
+
+;; bool msgpack_unpacker_reserve_buffer(msgpack_unpacker* mpac, size_t size)
+;; {
+;; 	if(mpac->free >= size) { return true; }
+;; 	return msgpack_unpacker_expand_buffer(mpac, size);
+;; }
+
+;; char* msgpack_unpacker_buffer(msgpack_unpacker* mpac)
+;; {
+;; 	return mpac->buffer + mpac->used;
+;; }
+
+;; size_t msgpack_unpacker_buffer_capacity(const msgpack_unpacker* mpac)
+;; {
+;; 	return mpac->free;
+;; }
+
+;; void msgpack_unpacker_buffer_consumed(msgpack_unpacker* mpac, size_t size)
+;; {
+;; 	mpac->used += size;
+;; 	mpac->free -= size;
+;; }
+
+;; size_t msgpack_unpacker_message_size(const msgpack_unpacker* mpac)
+;; {
+;; 	return mpac->parsed - mpac->off + mpac->used;
+;; }
+
+;; size_t msgpack_unpacker_parsed_size(const msgpack_unpacker* mpac)
+;; {
+;; 	return mpac->parsed;
+;; }
+
+
+
+
 
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
 
-(define-cproc test-msgpack () ::<const-cstring>
-  (result "messagepack is working"))
-
-(define-enum MSGPACK_OBJECT_NIL)
-(define-enum MSGPACK_OBJECT_BOOLEAN)
-(define-enum MSGPACK_OBJECT_POSITIVE_INTEGER)
-(define-enum MSGPACK_OBJECT_NEGATIVE_INTEGER)
-(define-enum MSGPACK_OBJECT_DOUBLE)
-(define-enum MSGPACK_OBJECT_RAW)
-(define-enum MSGPACK_OBJECT_ARRAY)
-(define-enum MSGPACK_OBJECT_MAP)
-
-(define-cproc msgpack-object-print (out o)
-  )
 ;; Local variables:
 ;; mode: scheme
 ;; end:

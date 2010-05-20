@@ -17,10 +17,11 @@ SCM_DECL_BEGIN
  * Replace it for your declarations.
  */
 
-extern ScmObj test_msgpack(void);
-
 extern ScmClass *MsgPackObjectArrayClass;
 extern ScmClass *MsgPackObjectClass;
+extern ScmClass *MsgPackPackerClass;
+extern ScmClass *MsgPackUnPackerClass;
+extern ScmClass *MsgPackSbufferClass;
 
 #define MSGPACK_OBJECT_ARRAY_P(obj)      SCM_XTYPEP(obj, MsgPackObjectArrayClass)
 #define MSGPACK_OBJECT_ARRAY_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(MsgPackObjectArrayClass*, (obj))
@@ -29,6 +30,18 @@ extern ScmClass *MsgPackObjectClass;
 #define MSGPACK_OBJECT_P(obj)      SCM_XTYPEP(obj, MsgPackObjectClass)
 #define MSGPACK_OBJECT_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(MsgPackObjectClass*, (obj))
 #define MSGPACK_OBJECT_BOX(ptr)    Scm_MakeForeignPointer(MsgPackObjectClass, ptr)
+
+#define MSGPACK_PACKER_P(obj)      SCM_XTYPEP(obj, MsgPackPackerClass)
+#define MSGPACK_PACKER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(MsgPackPackerClass*, (obj))
+#define MSGPACK_PACKER_BOX(ptr)    Scm_MakeForeignPointer(MsgPackPackerClass, ptr)
+
+#define MSGPACK_UNPACKER_P(obj)      SCM_XTYPEP(obj, MsgPackUnPackerClass)
+#define MSGPACK_UNPACKER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(MsgPackUnPackerClass*, (obj))
+#define MSGPACK_UNPACKER_BOX(ptr)    Scm_MakeForeignPointer(MsgPackUnPackerClass, ptr)
+
+#define MSGPACK_SBUFFER_P(obj)      SCM_XTYPEP(obj, MsgPackSbufferClass)
+#define MSGPACK_SBUFFER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(MsgPackSbufferClass*, (obj))
+#define MSGPACK_SBUFFER_BOX(ptr)    Scm_MakeForeignPointer(MsgPackSbufferClass, ptr)
 
 /* Epilogue */
 SCM_DECL_END

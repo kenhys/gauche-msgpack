@@ -85,7 +85,7 @@ function cb_build ()
     fi
     #OBJS="msgpack.o msgpacklib.o msgpacklib_head.o msgpacklib_tail.o"
     OBJS="msgpack*.o"
-    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack.dll $OBJS  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
+    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack.dll $OBJS  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9 -lws2_32 -lshlwapi"
     echo $com
     eval $com
     if [ $? -ne 0 ]; then

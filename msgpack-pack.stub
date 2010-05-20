@@ -3,27 +3,109 @@
 ;;;
 
 "
-#include <msgpack.h>
-#include \"msgpack.h\"
+#include \"msgpacklib.h\"
 "
 
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
 
-(define-cproc test-msgpack () ::<const-cstring>
-  (result "messagepack is working"))
+(define-type <msgpack-packer> "msgpack_packer*" "msgpack_packer"
+  "MSGPACK_PACKER_P" "MSGPACK_PACKER_UNBOX" "MSGPACK_PACKER_BOX")
 
-(define-enum MSGPACK_OBJECT_NIL)
-(define-enum MSGPACK_OBJECT_BOOLEAN)
-(define-enum MSGPACK_OBJECT_POSITIVE_INTEGER)
-(define-enum MSGPACK_OBJECT_NEGATIVE_INTEGER)
-(define-enum MSGPACK_OBJECT_DOUBLE)
-(define-enum MSGPACK_OBJECT_RAW)
-(define-enum MSGPACK_OBJECT_ARRAY)
-(define-enum MSGPACK_OBJECT_MAP)
+;;  void msgpack_packer_init(msgpack_packer* pk, void* data, msgpack_packer_write callback);
+(define-cproc msgpack-packer-init
+  (pk data proc)
+  (body <void>
+        "Scm_Error(\"msgpack-packer-init is not supported.\");"))
 
-(define-cproc msgpack-object-print (out o)
-  )
+;;  msgpack_packer* msgpack_packer_new(void* data, msgpack_packer_write callback);
+(define-cproc msgpack-packer-new
+  (data proc)
+  (body <void>
+        "Scm_Error(\"msgpack-packer-new is not supported.\");"))
+
+;;  void msgpack_packer_free(msgpack_packer* pk);
+(define-cproc msgpack-packer-free
+  (pk)
+  (body <void>
+        "Scm_Error(\"msgpack-packer-free is not supported.\");"))
+
+;;  msgpack_pack_short(msgpack_packer* pk, short d);
+(define-cproc msgpack-pack-short
+  (pk d)
+  (body <void>
+        "Scm_Error(\"msgpack-pack-short is not supported.\");"))
+
+;;  msgpack_pack_int(msgpack_pack* pk, int d);
+(define-cproc msgpack-pack-int
+  (pk d)
+  (body <void>
+        "Scm_Error(\"msgpack-pack-int is not supported.\");"))
+
+;;  msgpack_pack_long(msgpack_pack* pk, long d);
+(define-cproc msgpack-pack-long
+  (pk d)
+  (body <void>
+        "Scm_Error(\"msgpack-pack-long is not supported.\");"))
+
+;;  msgpack_pack_long_long(msgpack_pack* pk, long long d);
+;; (define-cproc msgpack-pack-long-long
+;;   (pk d) ::<void>
+;;   (body <void>
+;;         "msgpack_packer *packp = MSGPACK_PACKER_UNBOX(pk);"
+;;         "long long ld = 0L;"
+;;         "msgpack_pack_long_long(packp, ld);"))
+
+;;  msgpack_pack_unsigned_short(msgpack_pack* pk, unsigned short d);
+(define-cproc msgpack-pack-unsigned-short
+  (pk d)
+  (body <void>
+        "Scm_Error(\"msgpack-pack-unsigned-short is not supported.\");"))
+
+;;  msgpack_pack_unsigned_int(msgpack_pack* pk, unsigned int d);
+(define-cproc msgpack-pack-unsigned-int
+  (pk d)
+  (body <void>
+        "Scm_Error(\"msgpack-pack-unsigned-int is not supported.\");"))
+
+;;  msgpack_pack_unsigned_long(msgpack_pack* pk, unsigned long d);
+(define-cproc msgpack-pack-unsigned-long
+  (pk d)
+  (body <void>
+        "Scm_Error(\"msgpack-pack-unsigned-long is not supported.\");"))
+
+;;  msgpack_pack_unsigned_long_long(msgpack_pack* pk, unsigned long long d);
+(define-cproc msgpack-pack-unsigned-long-long
+  (pk d)
+  (body <void>
+        "Scm_Error(\"msgpack-pack-unsigned-long-long is not supported.\");"))
+
+;;  msgpack_pack_uint8(msgpack_packer* pk, uint8_t d);
+;;  msgpack_pack_uint16(msgpack_packer* pk, uint16_t d);
+;;  msgpack_pack_uint32(msgpack_packer* pk, uint32_t d);
+;;  msgpack_pack_uint64(msgpack_packer* pk, uint64_t d);
+;;  msgpack_pack_int8(msgpack_packer* pk, int8_t d);
+;;  msgpack_pack_int16(msgpack_packer* pk, int16_t d);
+;;  msgpack_pack_int32(msgpack_packer* pk, int32_t d);
+;;  msgpack_pack_int64(msgpack_packer* pk, int64_t d);
+
+;;  msgpack_pack_float(msgpack_packer* pk, float d);
+;;  msgpack_pack_double(msgpack_packer* pk, double d);
+
+;;  msgpack_pack_nil(msgpack_packer* pk);
+;;  msgpack_pack_true(msgpack_packer* pk);
+;;  msgpack_pack_false(msgpack_packer* pk);
+
+;;  msgpack_pack_array(msgpack_packer* pk, unsigned int n);
+
+;;  msgpack_pack_map(msgpack_packer* pk, unsigned int n);
+
+;;  msgpack_pack_raw(msgpack_packer* pk, size_t l);
+;;  msgpack_pack_raw_body(msgpack_packer* pk, const void* b, size_t l);
+
+;; int msgpack_pack_object(msgpack_packer* pk, msgpack_object d);
+
+
 ;; Local variables:
 ;; mode: scheme
 ;; end:
