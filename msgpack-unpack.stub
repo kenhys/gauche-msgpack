@@ -1,0 +1,29 @@
+;;;
+;;; msgpacklib.stub
+;;;
+
+"
+#include <msgpack.h>
+#include \"msgpack.h\"
+"
+
+;; The following entry is a dummy one.
+;; Replace it for your definitions.
+
+(define-cproc test-msgpack () ::<const-cstring>
+  (result "messagepack is working"))
+
+(define-enum MSGPACK_OBJECT_NIL)
+(define-enum MSGPACK_OBJECT_BOOLEAN)
+(define-enum MSGPACK_OBJECT_POSITIVE_INTEGER)
+(define-enum MSGPACK_OBJECT_NEGATIVE_INTEGER)
+(define-enum MSGPACK_OBJECT_DOUBLE)
+(define-enum MSGPACK_OBJECT_RAW)
+(define-enum MSGPACK_OBJECT_ARRAY)
+(define-enum MSGPACK_OBJECT_MAP)
+
+(define-cproc msgpack-object-print (out o)
+  )
+;; Local variables:
+;; mode: scheme
+;; end:

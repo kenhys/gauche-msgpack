@@ -9,7 +9,7 @@
 (select-module messagepack.object)
 
 ;; Loads extension
-;;(dynamic-load "messagepack")
+(dynamic-load "msgpack-object")
 
 ;;
 ;; Put your Scheme definitions here

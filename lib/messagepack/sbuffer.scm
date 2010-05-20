@@ -9,7 +9,7 @@
 (select-module messagepack.sbuffer)
 
 ;; Loads extension
-;;(dynamic-load "messagepack")
+(dynamic-load "msgpack-sbuffer")
 
 ;;
 ;; Put your Scheme definitions here
