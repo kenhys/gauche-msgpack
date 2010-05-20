@@ -21,12 +21,60 @@ MSGPACK_LIB="-lmsgpack -lmsgpackc"
 
 CFLAGS="-DHAVE_BOOL $MSGPACK_INC"
 
+function cb_compile ()
+{
+    mod=$1
+    if [ -f "${mod}_head.c" ]; then
+        com="gcc -c ${mod}_head.c -I$GDIST_INCDIR"
+        echo $com
+        eval $com
+        if [ $? -ne 0 ]; then
+            exit
+        fi
+    fi 
+    if [ -f "${mod}_tail.c" ]; then
+        com="gcc -c ${mod}_tail.c -I$GDIST_INCDIR"
+        echo $com
+        eval $com
+        if [ $? -ne 0 ]; then
+            exit
+        fi
+    fi 
+    if [ -f "${mod}.c" ]; then
+        com="LANG=C gcc  $CFLAGS -c ${mod}.c -I$GDIST_INCDIR 2>&1 | tee log/${mod}.c.log"
+        echo $com
+        eval $com
+        if [ $? -ne 0 ]; then
+            exit
+        fi
+    fi 
+    
+}
 
 function cb_build ()
 {
     mkdir -p log
     $GAUCHE_CONFIG --fixup-extension msgpacklib msgpack
     $GOSH $GENSTUB msgpacklib.stub
+    $GAUCHE_CONFIG --fixup-extension msgpack-object msgpack_object
+    $GOSH $GENSTUB msgpack-object.stub
+    $GAUCHE_CONFIG --fixup-extension msgpack-zone msgpack_zone
+    $GOSH $GENSTUB msgpack-zone.stub
+    $GAUCHE_CONFIG --fixup-extension msgpack-pack msgpack_pack
+    $GOSH $GENSTUB msgpack-pack.stub
+    $GAUCHE_CONFIG --fixup-extension msgpack-unpack msgpack_unpack
+    $GOSH $GENSTUB msgpack-unpack.stub
+    $GAUCHE_CONFIG --fixup-extension msgpack-sbuffer msgpack_sbuffer
+    $GOSH $GENSTUB msgpack-sbuffer.stub
+    $GAUCHE_CONFIG --fixup-extension msgpack-vrefbuffer msgpack_vrefbuffer
+    $GOSH $GENSTUB msgpack-vrefbuffer.stub
+    cb_compile msgpacklib
+    cb_compile msgpack-object
+    cb_compile msgpack-zone
+    cb_compile msgpack-pack
+    cb_compile msgpack-unpack
+    cb_compile msgpack-sbuffer
+    cb_compile msgpack-vrefbuffer
     if [ $? -ne 0 ]; then
         exit
     fi
@@ -75,6 +123,7 @@ function cb_clean ()
     rm -fr autom4te.*
     rm -f *_head.*
     rm -f *_tail.*
+    rm -f *-*.c
 
 }
 
