@@ -9,7 +9,7 @@
 (select-module messagepack.vrefbuffer)
 
 ;; Loads extension
-(dynamic-load "msgpack-vrefbuffer")
+;;(dynamic-load "msgpack-vrefbuffer")
 
 ;;
 ;; Put your Scheme definitions here

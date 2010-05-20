@@ -9,7 +9,7 @@
 (select-module messagepack.pack)
 
 ;; Loads extension
-(dynamic-load "msgpack-pack")
+;;(dynamic-load "msgpack-pack")
 
 ;;
 ;; Put your Scheme definitions here
@@ -60,16 +60,16 @@
 (define (msgpack_pack_int64 pk::<msgpack-packer> d::<int64_t>)
   (error ""))
 
-static int msgpack_pack_float(msgpack_packer* pk, float d);
-static int msgpack_pack_double(msgpack_packer* pk, double d);
+;; static int msgpack_pack_float(msgpack_packer* pk, float d);
+;; static int msgpack_pack_double(msgpack_packer* pk, double d);
 
-static int msgpack_pack_nil(msgpack_packer* pk);
-static int msgpack_pack_true(msgpack_packer* pk);
-static int msgpack_pack_false(msgpack_packer* pk);
+;; static int msgpack_pack_nil(msgpack_packer* pk);
+;; static int msgpack_pack_true(msgpack_packer* pk);
+;; static int msgpack_pack_false(msgpack_packer* pk);
 
-static int msgpack_pack_array(msgpack_packer* pk, unsigned int n);
+;; static int msgpack_pack_array(msgpack_packer* pk, unsigned int n);
 
-static int msgpack_pack_map(msgpack_packer* pk, unsigned int n);
+;; static int msgpack_pack_map(msgpack_packer* pk, unsigned int n);
 
 (define msgpack_pack_raw
   (error ""))

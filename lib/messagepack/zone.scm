@@ -9,7 +9,7 @@
 (select-module messagepack.zone)
 
 ;; Loads extension
-(dynamic-load "msgpack-zone")
+;;(dynamic-load "msgpack-zone")
 
 ;;
 ;; Put your Scheme definitions here

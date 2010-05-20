@@ -83,30 +83,32 @@ function cb_build ()
         echo "fail"
         exit
     fi
-    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack.dll *.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
+    #OBJS="msgpack.o msgpacklib.o msgpacklib_head.o msgpacklib_tail.o"
+    OBJS="msgpack*.o"
+    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack.dll $OBJS  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
     echo $com
     eval $com
     if [ $? -ne 0 ]; then
         exit
     fi
-    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-object.dll msgpack-object*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
-    echo $com
-    eval $com
-    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-zone.dll msgpack-zone*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
-    echo $com
-    eval $com
-    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-pack.dll msgpack-pack*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
-    echo $com
-    eval $com
-    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-unpack.dll msgpack-unpack*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
-    echo $com
-    eval $com
-    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-sbuffer.dll msgpack-sbuffer*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
-    echo $com
-    eval $com
-    com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-vrefbuffer.dll msgpack-vrefbuffer*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
-    echo $com
-    eval $com
+#     com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-object.dll msgpack-object*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
+#     echo $com
+#     eval $com
+#     com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-zone.dll msgpack-zone*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
+#     echo $com
+#     eval $com
+#     com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-pack.dll msgpack-pack*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
+#     echo $com
+#     eval $com
+#     com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-unpack.dll msgpack-unpack*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
+#     echo $com
+#     eval $com
+#     com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-sbuffer.dll msgpack-sbuffer*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
+#     echo $com
+#     eval $com
+#     com="LANG=C gcc -lmingw32 `gauche-config --dylib-ldflags` msgpack-vrefbuffer.dll msgpack-vrefbuffer*.o  -L. $MSGPACK_LIB -L$GDIST_LIBDIR -lgauche-0.9"
+#     echo $com
+#     eval $com
 }
 
 function cb_clean ()
