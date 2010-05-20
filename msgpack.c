@@ -9,10 +9,8 @@
  * your C function definitions.
  */
 
-ScmObj test_msgpack(void)
-{
-    return SCM_MAKE_STR("msgpack is working");
-}
+extern ScmClass *MsgPackObjectArrayClass;
+extern ScmClass *MsgPackObjectClass;
 
 /*
  * Module initialization function.

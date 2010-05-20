@@ -4,7 +4,7 @@
 
 "
 #include <msgpack.h>
-#include \"msgpack.h\"
+#include \"msgpacklib.h\"
 "
 
 ;; The following entry is a dummy one.
