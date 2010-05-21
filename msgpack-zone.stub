@@ -9,6 +9,53 @@
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
 
+(define-type <msgpack-zone> "msgpack_zone*" "msgpack zone"
+  "MSGPACK_ZONE_P" "MSGPACK_ZONE_UNBOX" "MSGPACK_ZONE_BOX")
+(define-type <size> "size_t*" "size_t"
+  "SCM_SIZE_T_P" "SCM_SIZE_T_UNBOX" "SCM_SIZE_T_BOX")
+
+
+;; bool msgpack_zone_init(msgpack_zone* zone, size_t chunk_size);
+(define-cproc msgpack-zone-init (zone::<msgpack-zone>
+                                 chunk::<size>)
+  (body <boolean> (result (msgpack_zone_init zone (* chunk)))))
+
+;; void msgpack_zone_destroy(msgpack_zone* zone);
+(define-cproc msgpack-zone-destroy (zone::<msgpack-zone>)
+  (body <void> (msgpack_zone_destroy zone)))
+
+;; msgpack_zone* msgpack_zone_new(size_t chunk_size);
+(define-cproc msgpack-zone-new (chunk::<size>)
+  (body <msgpack-zone> (result (msgpack_zone_new (* chunk)))))
+
+;; void msgpack_zone_free(msgpack_zone* zone);
+(define-cproc msgpack-zone-free (zone::<msgpack-zone>)
+  (body <void> (msgpack_zone_free zone)))
+
+;; TBD
+;; static inline void* msgpack_zone_malloc(msgpack_zone* zone, size_t size);
+;; (define-cproc msgpack-zone-malloc (zone::<msgpack-zone>
+;;                                    size::<size>)
+;;   (body <void>? (msgpack_zone_malloc zone (* size))))
+
+;; static inline void* msgpack_zone_malloc_no_align(msgpack_zone* zone, size_t size);
+
+;; static inline bool msgpack_zone_push_finalizer(msgpack_zone* zone,
+;; 		void (*func)(void* data), void* data);
+
+;; bool msgpack_zone_is_empty(msgpack_zone* zone);
+(define-cproc msgpack-zone-is-empty (zone::<msgpack-zone>)
+  (body <boolean> (result (msgpack_zone_is_empty zone))))
+
+;; void msgpack_zone_clear(msgpack_zone* zone);
+(define-cproc msgpack-zone-clear (zone::<msgpack-zone>)
+  (body <void> (msgpack_zone_clear zone)))
+
+;; void* msgpack_zone_malloc_expand(msgpack_zone* zone, size_t size);
+
+;; bool msgpack_zone_push_finalizer_expand(msgpack_zone* zone,
+;; 		void (*func)(void* data), void* data);
+
 ;; Local variables:
 ;; mode: scheme
 ;; end:
