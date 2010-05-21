@@ -8,7 +8,7 @@
 (select-module messagepack)
 
 ;; Loads extension
-(dynamic-load "msgpack")
+(dynamic-load "messagepack")
 
 ;;
 ;; Put your Scheme definitions here

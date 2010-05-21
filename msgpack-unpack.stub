@@ -18,7 +18,7 @@
 (define-cproc msgpack-unpacker-init (mpac::<msgpack-unpacker>
                                      size::<int>)
   (body <boolean>
-        (msgpack_unpacker_init mpac size)))
+        (result (msgpack_unpacker_init mpac size))))
 
 ;; void msgpack_unpacker_destroy(msgpack_unpacker* mpac);
 (define-cproc msgpack-unpacker-destroy (mpac::<msgpack-unpacker>)

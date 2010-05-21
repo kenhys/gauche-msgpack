@@ -175,7 +175,7 @@ function cb_test ()
     if [ ! -z "$CB_TEST_SCM" ]; then
         $GOSH -I. $CB_TEST_SCM
     else
-        $GOSH -I. test/test-in.scm
+        $GOSH -I. test/msgpack-object.scm
     fi 
 }
 
