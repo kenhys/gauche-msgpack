@@ -9,6 +9,37 @@
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
 
+(define-type <msgpack-vrefbuffer> "msgpack_vrefbuffer*" "msgpack vrefbuffer"
+  "MSGPACK_VREFBUFFER_P" "MSGPACK_VREFBUFFER_UNBOX" "MSGPACK_VREFBUFFER_BOX")
+
+;; bool msgpack_vrefbuffer_init(msgpack_vrefbuffer* vbuf,
+;; 		size_t ref_size, size_t chunk_size);
+(define-cproc msgpack-vrefbuffer-init (vbuf::<msgpack-vrefbuffer>
+                                       ref::<int>
+                                       chunk::<int>)
+  (body <boolean> (result (msgpack_vrefbuffer_init vbuf ref chunk))))
+
+;; void msgpack_vrefbuffer_destroy(msgpack_vrefbuffer* vbuf);
+(define-cproc msgpack-vrefbuffer-destroy (vbuf::<msgpack-vrefbuffer>)
+  (body <void> (msgpack_vrefbuffer_destroy vbuf)))
+
+;; static inline int msgpack_vrefbuffer_write(void* data, const char* buf, unsigned int len);
+(define-cproc msgpack-vrefbuffer-write (data
+                                        vbuf::<msgpack-vrefbuffer>
+                                        len::<uint>)
+  (body <int> (result (msgpack_vrefbuffer_write data vbuf len))))
+
+;; static inline const struct iovec* msgpack_vrefbuffer_vec(const msgpack_vrefbuffer* vref);
+;; static inline size_t msgpack_vrefbuffer_veclen(const msgpack_vrefbuffer* vref);
+
+;; int msgpack_vrefbuffer_append_copy(msgpack_vrefbuffer* vbuf,
+;; 		const char* buf, unsigned int len);
+
+;; int msgpack_vrefbuffer_append_ref(msgpack_vrefbuffer* vbuf,
+;; 		const char* buf, unsigned int len);
+
+;; int msgpack_vrefbuffer_migrate(msgpack_vrefbuffer* vbuf, msgpack_vrefbuffer* to);
+
 ;; Local variables:
 ;; mode: scheme
 ;; end:

@@ -11,47 +11,77 @@
 (define-enum MSGPACK_UNPACK_CONTINUE)
 (define-enum MSGPACK_UNPACK_PARSE_ERROR)
 
-(define-type <msgpack-unpacker> "msgpack_unpacker*" "msgpack_unpacker"
+(define-type <msgpack-unpacker> "msgpack_unpacker*" "msgpack unpacker"
   "MSGPACK_UNPACKER_P" "MSGPACK_UNPACKER_UNBOX" "MSGPACK_UNPACKER_BOX")
+(define-type <msgpack-object> "msgpack_object*" "msgpack object"
+  "MSGPACK_OBJECT_P" "MSGPACK_OBJECT_UNBOX" "MSGPACK_OBJECT_BOX")
+(define-type <msgpack-zone> "msgpack_zone*" "msgpack zone"
+  "MSGPACK_ZONE_P" "MSGPACK_ZONE_UNBOX" "MSGPACK_ZONE_BOX")
 
 ;; bool msgpack_unpacker_init(msgpack_unpacker* mpac, size_t initial_buffer_size);
 (define-cproc msgpack-unpacker-init (mpac::<msgpack-unpacker>
                                      size::<int>)
-  (body <boolean>
-        (result (msgpack_unpacker_init mpac size))))
+  (body <boolean> (result (msgpack_unpacker_init mpac size))))
 
 ;; void msgpack_unpacker_destroy(msgpack_unpacker* mpac);
 (define-cproc msgpack-unpacker-destroy (mpac::<msgpack-unpacker>)
-  (body <void>
-        (msgpack_unpacker_destroy mpac)))
+  (body <void> (msgpack_unpacker_destroy mpac)))
 
 ;; msgpack_unpacker* msgpack_unpacker_new(size_t initial_buffer_size);
 (define-cproc msgpack-unpacker-new (size::<int>)
-  (body <msgpack-unpacker>
-        (msgpack_unpacker_new size)))
+  (body <msgpack-unpacker> (msgpack_unpacker_new size)))
 
 ;; void msgpack_unpacker_free(msgpack_unpacker* mpac);
 (define-cproc msgpack-unpacker-free (mpac::<msgpack-unpacker>)
-  (body <void>
-        (msgpack_unpacker_free mpac)))
+  (body <void> (msgpack_unpacker_free mpac)))
 
 ;; static inline bool   msgpack_unpacker_reserve_buffer(msgpack_unpacker* mpac, size_t size);
-;; static inline char*  msgpack_unpacker_buffer(msgpack_unpacker* mpac);
-;; static inline size_t msgpack_unpacker_buffer_capacity(const msgpack_unpacker* mpac);
-;; static inline void   msgpack_unpacker_buffer_consumed(msgpack_unpacker* mpac, size_t size);
+(define-cproc msgpack-unpacker-reserve-buffer (mpac::<msgpack-unpacker>
+                                               size::<int>)
+  (body <boolean>
+        (result (msgpack_unpacker_reserve_buffer mpac size))))
 
+;; static inline char*  msgpack_unpacker_buffer(msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-buffer (mpac::<msgpack-unpacker>)
+  (body <const-cstring>?
+        (result (msgpack_unpacker_buffer mpac))))
+
+;; static inline size_t msgpack_unpacker_buffer_capacity(const msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-buffer-capacity (mpac::<msgpack-unpacker>)
+  (body <int>
+        (result (msgpack_unpacker_buffer_capacity mpac))))
+
+;; static inline void   msgpack_unpacker_buffer_consumed(msgpack_unpacker* mpac, size_t size);
+(define-cproc msgpack-unpacker-buffer-consumed (mpac::<msgpack-unpacker>
+                                                size::<int>)
+  (body <void>
+        (msgpack_unpacker_buffer_consumed mpac size)))
 
 ;; int msgpack_unpacker_execute(msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-execute (mpac::<msgpack-unpacker>)
+  (body <int> (msgpack_unpacker_execute mpac)))
 
 ;; msgpack_object msgpack_unpacker_data(msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-data (mpac::<msgpack-unpacker>)
+  (body <msgpack-object>
+         (msgpack_unpacker_data mpac)))
 
 ;; msgpack_zone* msgpack_unpacker_release_zone(msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-release-zone (mpac::<msgpack-unpacker>)
+  (body <msgpack-zone>
+        (result (msgpack_unpacker_release_zone mpac))))
 
 ;; void msgpack_unpacker_reset_zone(msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-reset-zone (mpac::<msgpack-unpacker>)
+  (body <void> (msgpack_unpacker_reset_zone mpac)))
 
 ;; void msgpack_unpacker_reset(msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-reset (mpac::<msgpack-unpacker>)
+  (body <void> (msgpack_unpacker_reset mpac)))
 
 ;; static inline size_t msgpack_unpacker_message_size(const msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-message-size (mpac::<msgpack-unpacker>)
+  (body <int> (result (msgpack_unpacker_message_size mpac))))
 
 ;; msgpack_unpack_return
 ;; msgpack_unpack(const char* data, size_t len, size_t* off,
@@ -59,45 +89,17 @@
 
 
 ;; static inline size_t msgpack_unpacker_parsed_size(const msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-parsed-size (mpac::<msgpack-unpacker>)
+  (body <int> (result (msgpack_unpacker_parsed_size mpac))))
 
 ;; bool msgpack_unpacker_flush_zone(msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-flush-zone (mpac::<msgpack-unpacker>)
+  (body <boolean> (result (msgpack_unpacker_flush_zone mpac))))
 
 ;; bool msgpack_unpacker_expand_buffer(msgpack_unpacker* mpac, size_t size);
-
-;; bool msgpack_unpacker_reserve_buffer(msgpack_unpacker* mpac, size_t size)
-;; {
-;; 	if(mpac->free >= size) { return true; }
-;; 	return msgpack_unpacker_expand_buffer(mpac, size);
-;; }
-
-;; char* msgpack_unpacker_buffer(msgpack_unpacker* mpac)
-;; {
-;; 	return mpac->buffer + mpac->used;
-;; }
-
-;; size_t msgpack_unpacker_buffer_capacity(const msgpack_unpacker* mpac)
-;; {
-;; 	return mpac->free;
-;; }
-
-;; void msgpack_unpacker_buffer_consumed(msgpack_unpacker* mpac, size_t size)
-;; {
-;; 	mpac->used += size;
-;; 	mpac->free -= size;
-;; }
-
-;; size_t msgpack_unpacker_message_size(const msgpack_unpacker* mpac)
-;; {
-;; 	return mpac->parsed - mpac->off + mpac->used;
-;; }
-
-;; size_t msgpack_unpacker_parsed_size(const msgpack_unpacker* mpac)
-;; {
-;; 	return mpac->parsed;
-;; }
-
-
-
+(define-cproc msgpack-unpacker-expand-buffer (mpac::<msgpack-unpacker>
+                                              size::<int>)
+  (body <boolean> (result (msgpack_unpacker_expand_buffer mpac size))))
 
 
 ;; The following entry is a dummy one.

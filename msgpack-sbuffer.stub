@@ -23,6 +23,7 @@
   (body <void>
         (msgpack_sbuffer_destroy sbuf)))
 
+;; TBD
 ;; static inline int msgpack_sbuffer_write(void* data, const char* buf, unsigned int len)
 ;; (define-cproc msgpack-sbuffer-write (data buf len)
 ;;   (body <int>
