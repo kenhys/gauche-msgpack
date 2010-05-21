@@ -3,8 +3,8 @@
 ;;;
 
 "
-#include \"msgpacklib.h\"
 #include <stdio.h>
+#include \"msgpacklib.h\"
 "
 
 ;; The following entry is a dummy one.
@@ -15,11 +15,11 @@
 
 ;;; static inline void msgpack_sbuffer_init(msgpack_sbuffer* sbuf)
 (define-cproc msgpack-sbuffer-init
-  (sbuf) ::<void>
-  (body <void>
+  (sbuf::<msgpack-sbuffer>) ::<void>
+  (body <int>
         "/*msgpack_sbuffer *pbuf = MSGPACK_SBUFFER_UNBOX(sbuf);*/"
-        "msgpack_sbuffer *pbuf = SCM_FOREIGN_POINTER_REF(MsgPackSbufferClass*, sbuf);"
-        "msgpack_sbuffer_init(pbuf);"))
+        "/*msgpack_sbuffer *pbuf = SCM_FOREIGN_POINTER_REF(MsgPackSbufferClass*, (sbuf));*/"
+        "msgpack_sbuffer_init(sbuf);"))
 
 ;; static inline void msgpack_sbuffer_destroy(msgpack_sbuffer* sbuf)
 (define-cproc msgpack-sbuffer-destroy
