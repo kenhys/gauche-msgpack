@@ -23,6 +23,11 @@ extern ScmClass *MsgPackPackerClass;
 extern ScmClass *MsgPackUnPackerClass;
 extern ScmClass *MsgPackSbufferClass;
 
+extern ScmClass *ScmLongLongClass;
+extern ScmClass *ScmULongLongClass;
+extern ScmClass *ScmInt64Class;
+extern ScmClass *ScmUInt64Class;
+
 #define MSGPACK_OBJECT_ARRAY_P(obj)      SCM_XTYPEP(obj, MsgPackObjectArrayClass)
 #define MSGPACK_OBJECT_ARRAY_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(msgpack_object_array*, (obj))
 #define MSGPACK_OBJECT_ARRAY_BOX(ptr)    Scm_MakeForeignPointer(MsgPackObjectArrayClass, ptr)
@@ -42,6 +47,22 @@ extern ScmClass *MsgPackSbufferClass;
 #define MSGPACK_SBUFFER_P(obj)      SCM_XTYPEP(obj, MsgPackSbufferClass)
 #define MSGPACK_SBUFFER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(msgpack_sbuffer*, (obj))
 #define MSGPACK_SBUFFER_BOX(ptr)    Scm_MakeForeignPointer(MsgPackSbufferClass, ptr)
+
+#define SCM_LONGLONG_P(obj)      SCM_XTYPEP(obj, ScmLongLongClass)
+#define SCM_LONGLONG_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(long long*, (obj))
+#define SCM_LONGLONG_BOX_BOX(ptr)    Scm_MakeForeignPointer(ScmLongLongClass, ptr)
+
+#define SCM_ULONGLONG_P(obj)      SCM_XTYPEP(obj, ScmULongLongClass)
+#define SCM_ULONGLONG_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(unsigned long long*, (obj))
+#define SCM_ULONGLONG_BOX_BOX(ptr)    Scm_MakeForeignPointer(ScmULongLongClass, ptr)
+
+#define SCM_INT64_P(obj)      SCM_XTYPEP(obj, ScmInt64Class)
+#define SCM_INT64_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(int64_t*, (obj))
+#define SCM_INT64_BOX(ptr)    Scm_MakeForeignPointer(ScmInt64Class, ptr)
+
+#define SCM_UINT64_P(obj)      SCM_XTYPEP(obj, ScmUInt64Class)
+#define SCM_UINT64_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(uint64_t*, (obj))
+#define SCM_UINT64_BOX(ptr)    Scm_MakeForeignPointer(ScmUInt64Class, ptr)
 
 /* Epilogue */
 SCM_DECL_END

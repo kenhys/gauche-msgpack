@@ -15,6 +15,11 @@ ScmClass *MsgPackPackerClass;
 ScmClass *MsgPackUnPackerClass;
 ScmClass *MsgPackSbufferClass;
 
+ScmClass *ScmInt64Class;
+ScmClass *ScmUInt64Class;
+ScmClass *ScmLongLongClass;
+ScmClass *ScmULongLongClass;
+
 /*
  * Module initialization function.
  */

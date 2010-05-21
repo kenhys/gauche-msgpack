@@ -12,85 +12,139 @@
 (define-type <msgpack-packer> "msgpack_packer*" "msgpack_packer"
   "MSGPACK_PACKER_P" "MSGPACK_PACKER_UNBOX" "MSGPACK_PACKER_BOX")
 
+(define-type <longlong> "long long*" "long long"
+  "SCM_LONGLONG_P" "SCM_LONGLONG_UNBOX" "SCM_LONGLONG_BOX")
+(define-type <ulonglong> "unsigned long long*" "unsigned long long"
+  "SCM_ULONGLONG_P" "SCM_ULONGLONG_UNBOX" "SCM_ULONGLONG_BOX")
+
+(define-type <int64> "int64_t*" "int64_t"
+  "SCM_INT64_P" "SCM_INT64_UNBOX" "SCM_INT64_BOX")
+(define-type <uint64> "uint64_t*" "uint64_t"
+  "SCM_UINT64_P" "SCM_UINT64_UNBOX" "SCM_UINT64_BOX")
+
 ;;  void msgpack_packer_init(msgpack_packer* pk, void* data, msgpack_packer_write callback);
 (define-cproc msgpack-packer-init
   (pk data proc)
   (body <void>
-        "Scm_Error(\"msgpack-packer-init is not supported.\");"))
+        (Scm_Error "msgpack-packer-init is not supported.")))
 
 ;;  msgpack_packer* msgpack_packer_new(void* data, msgpack_packer_write callback);
-(define-cproc msgpack-packer-new
-  (data proc)
+(define-cproc msgpack-packer-new (data proc)
   (body <void>
         "Scm_Error(\"msgpack-packer-new is not supported.\");"))
 
 ;;  void msgpack_packer_free(msgpack_packer* pk);
-(define-cproc msgpack-packer-free
-  (pk)
+(define-cproc msgpack-packer-free (pk::<msgpack-packer>)
   (body <void>
-        "Scm_Error(\"msgpack-packer-free is not supported.\");"))
+        (msgpack_packer_free pk)))
 
 ;;  msgpack_pack_short(msgpack_packer* pk, short d);
-(define-cproc msgpack-pack-short
-  (pk d)
-  (body <void>
-        "Scm_Error(\"msgpack-pack-short is not supported.\");"))
+(define-cproc msgpack-pack-short (pk::<msgpack-packer>
+                                  d::<short>)
+  (body <int>
+        (result (msgpack_pack_short pk d))))
 
 ;;  msgpack_pack_int(msgpack_pack* pk, int d);
-(define-cproc msgpack-pack-int
-  (pk d)
-  (body <void>
-        "Scm_Error(\"msgpack-pack-int is not supported.\");"))
+(define-cproc msgpack-pack-int (pk::<msgpack-packer>
+                                d::<int>)
+  (body <int>
+        (result (msgpack_pack_int pk d))))
 
 ;;  msgpack_pack_long(msgpack_pack* pk, long d);
-(define-cproc msgpack-pack-long
-  (pk d)
-  (body <void>
-        "Scm_Error(\"msgpack-pack-long is not supported.\");"))
+(define-cproc msgpack-pack-long (pk::<msgpack-packer>
+                                 d::<long>)
+  (body <int>
+        (result (msgpack_pack_long pk d))))
 
 ;;  msgpack_pack_long_long(msgpack_pack* pk, long long d);
-;; (define-cproc msgpack-pack-long-long
-;;   (pk d) ::<void>
-;;   (body <void>
-;;         "msgpack_packer *packp = MSGPACK_PACKER_UNBOX(pk);"
-;;         "long long ld = 0L;"
-;;         "msgpack_pack_long_long(packp, ld);"))
+(define-cproc msgpack-pack-long-long (pk::<msgpack-packer>
+                                      d::<longlong>)
+  (body <int>
+        (result (msgpack_pack_long_long pk (* d)))))
 
 ;;  msgpack_pack_unsigned_short(msgpack_pack* pk, unsigned short d);
-(define-cproc msgpack-pack-unsigned-short
-  (pk d)
-  (body <void>
-        "Scm_Error(\"msgpack-pack-unsigned-short is not supported.\");"))
+(define-cproc msgpack-pack-unsigned-short (pk::<msgpack-packer>
+                                           d::<ushort>)
+  (body <int>
+        (result (msgpack_pack_unsigned_short pk d))))
 
 ;;  msgpack_pack_unsigned_int(msgpack_pack* pk, unsigned int d);
-(define-cproc msgpack-pack-unsigned-int
-  (pk d)
-  (body <void>
-        "Scm_Error(\"msgpack-pack-unsigned-int is not supported.\");"))
+(define-cproc msgpack-pack-unsigned-int (pk::<msgpack-packer>
+                                         d::<uint>)
+  (body <int>
+        (result (msgpack_pack_unsigned_int pk d))))
 
 ;;  msgpack_pack_unsigned_long(msgpack_pack* pk, unsigned long d);
-(define-cproc msgpack-pack-unsigned-long
-  (pk d)
-  (body <void>
-        "Scm_Error(\"msgpack-pack-unsigned-long is not supported.\");"))
+(define-cproc msgpack-pack-unsigned-long (pk::<msgpack-packer>
+                                          d::<ulong>)
+  (body <int>
+        (result (msgpack_pack_unsigned_long pk d))))
 
 ;;  msgpack_pack_unsigned_long_long(msgpack_pack* pk, unsigned long long d);
-(define-cproc msgpack-pack-unsigned-long-long
-  (pk d)
-  (body <void>
-        "Scm_Error(\"msgpack-pack-unsigned-long-long is not supported.\");"))
+(define-cproc msgpack-pack-unsigned-long-long (pk::<msgpack-packer>
+                                               d::<ulonglong>)
+  (body <int>
+        (result (msgpack_pack_unsigned_long_long pk (* d)))))
 
 ;;  msgpack_pack_uint8(msgpack_packer* pk, uint8_t d);
+(define-cproc msgpack-pack-uint8 (pk::<msgpack-packer>
+                                  d::<uint8>)
+  (body <int>
+        (result (msgpack_pack_uint8 pk d))))
+
 ;;  msgpack_pack_uint16(msgpack_packer* pk, uint16_t d);
+(define-cproc msgpack-pack-uint16 (pk::<msgpack-packer>
+                                   d::<uint16>)
+  (body <int>
+        (result (msgpack_pack_uint16 pk d))))
+
 ;;  msgpack_pack_uint32(msgpack_packer* pk, uint32_t d);
+(define-cproc msgpack-pack-uint32 (pk::<msgpack-packer>
+                                   d::<uint32>)
+  (body <int>
+        (result (msgpack_pack_uint32 pk d))))
+
 ;;  msgpack_pack_uint64(msgpack_packer* pk, uint64_t d);
+(define-cproc msgpack-pack-uint64 (pk::<msgpack-packer>
+                                   d::<uint64>)
+  (body <int>
+        (result (msgpack_pack_uint64 pk (* d)))))
+
 ;;  msgpack_pack_int8(msgpack_packer* pk, int8_t d);
+(define-cproc msgpack-pack-int8 (pk::<msgpack-packer>
+                                   d::<int8>)
+  (body <int>
+        (result (msgpack_pack_int8 pk d))))
+
 ;;  msgpack_pack_int16(msgpack_packer* pk, int16_t d);
+(define-cproc msgpack-pack-int16 (pk::<msgpack-packer>
+                                   d::<int16>)
+  (body <int>
+        (result (msgpack_pack_int16 pk d))))
+
 ;;  msgpack_pack_int32(msgpack_packer* pk, int32_t d);
+(define-cproc msgpack-pack-int32 (pk::<msgpack-packer>
+                                  d::<int32>)
+  (body <int>
+        (result (msgpack_pack_int32 pk d))))
+
 ;;  msgpack_pack_int64(msgpack_packer* pk, int64_t d);
+(define-cproc msgpack-pack-int64 (pk::<msgpack-packer>
+                                  d::<int64>)
+  (body <int>
+        (result (msgpack_pack_int64 pk (* d)))))
 
 ;;  msgpack_pack_float(msgpack_packer* pk, float d);
+(define-cproc msgpack-pack-float (pk::<msgpack-packer>
+                                   d::<float>)
+  (body <int>
+        (result (msgpack_pack_float pk d))))
+
 ;;  msgpack_pack_double(msgpack_packer* pk, double d);
+(define-cproc msgpack-pack-double (pk::<msgpack-packer>
+                                   d::<double>)
+  (body <int>
+        (result (msgpack_pack_double pk d))))
 
 ;;  msgpack_pack_nil(msgpack_packer* pk);
 ;;  msgpack_pack_true(msgpack_packer* pk);
