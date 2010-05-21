@@ -28,6 +28,7 @@ else
 fi
 
 CB_BUILD=0
+CB_BUILD_STUB=""
 CB_CLEAN=0
 CB_CLEAN_ALL=0
 CB_TEST=0
@@ -90,25 +91,28 @@ function cb_build ()
     mkdir -p log
     $GAUCHE_CONFIG --fixup-extension msgpacklib msgpack
     $GOSH $GENSTUB msgpacklib.stub
-#     $GAUCHE_CONFIG --fixup-extension msgpack-object msgpack_object
-#     $GOSH $GENSTUB msgpack-object.stub
-#     $GAUCHE_CONFIG --fixup-extension msgpack-zone msgpack_zone
-#     $GOSH $GENSTUB msgpack-zone.stub
-#     $GAUCHE_CONFIG --fixup-extension msgpack-pack msgpack_pack
-#     $GOSH $GENSTUB msgpack-pack.stub
-#     $GAUCHE_CONFIG --fixup-extension msgpack-unpack msgpack_unpack
-    $GOSH $GENSTUB msgpack-unpack.stub
-#     $GAUCHE_CONFIG --fixup-extension msgpack-sbuffer msgpack_sbuffer
-    $GOSH $GENSTUB msgpack-sbuffer.stub
-#     $GAUCHE_CONFIG --fixup-extension msgpack-vrefbuffer msgpack_vrefbuffer
-#     $GOSH $GENSTUB msgpack-vrefbuffer.stub
+    for m in msgpack-object msgpack-zone msgpack-pack msgpack-unpack msgpack-sbuffer msgpack-vrefbuffer; do
+        c=0
+        if [ ! -z "$CB_BUILD_STUB" ]; then
+            if [ "$CB_BUILD_STUB" = "$m.stub" ]; then
+                c=1
+            fi
+        else
+            c=1
+        fi
+        if [ $c -eq 1 ]; then
+            f=`echo $m | sed -e 's|-|_|'`
+#             printf "\ngenerate fixup for %s\n" $f
+#             $GAUCHE_CONFIG --fixup-extension $m $f
+            printf "\ngenerate .c from %s.stub\n" $f
+            $GOSH $GENSTUB "${m}.stub"
+            printf "\ncompile %s.c and related stuff\n" $f
+            cb_compile $m 0
+        else
+            printf "skip $m.stub\n"
+        fi
+    done
     cb_compile msgpacklib
-    cb_compile msgpack-object
-    cb_compile msgpack-zone
-    cb_compile msgpack-pack
-    cb_compile msgpack-unpack
-    cb_compile msgpack-sbuffer
-#     cb_compile msgpack-vrefbuffer
     com="LANG=C gcc -c msgpack.c -I$GDIST_INCDIR $CFLAGS 2>&1 | tee log/msgpack.c.log"
     echo $com
     eval $com
@@ -230,6 +234,13 @@ while [ $# -gt 0 ]; do
         -b|build)
             CB_BUILD=1
             shift
+            if [ ! -z "$1" ]; then
+                if [ -f "$1" ]; then
+                    # stub
+                    CB_BUILD_STUB=$1
+                    shift
+                fi
+            fi
             ;;
         -E)
             CB_PREPROCESS=1
