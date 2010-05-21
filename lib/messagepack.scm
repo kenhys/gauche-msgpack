@@ -8,7 +8,7 @@
 (select-module messagepack)
 
 ;; Loads extension
-(dynamic-load "messagepack")
+(dynamic-load "messagepack" :init-function "Scm_Init_msgpack")
 
 ;;
 ;; Put your Scheme definitions here

@@ -173,9 +173,11 @@ function cb_test ()
         #$GOSH -I. test/test-demon.scm
     #$GOSH -I. test/test-nqueen.scm
     if [ ! -z "$CB_TEST_SCM" ]; then
-        $GOSH -I. $CB_TEST_SCM
+        $GOSH -I.-I./lib $CB_TEST_SCM
     else
-        $GOSH -I. test/msgpack-object.scm
+        for f in test/test*.scm; do
+            $GOSH -I. -I.. -I./lib $f
+        done
     fi 
 }
 
