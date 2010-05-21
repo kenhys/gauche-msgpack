@@ -1,7 +1,9 @@
-msgpack*.dll
+messagepack*.dll
 *_head.c
 *_tail.c
 log/*.log
 msgpacklib.c
 msgpack-*.c
 log
+tmp*
+test.*
