@@ -22,6 +22,7 @@ else
     GDIST_LIBDIR=$GDIST_DIR/bin
     GAUCHE_CONFIG=$GDIST_DIR/bin/gauche-config
     GENSTUB=$GDIST_DIR/share/gauche/0.9.1_pre1/lib/genstub
+    export GENSTUB=$GENSTUB
     LIBGAUCHE=-lgauche-0.9
     export PATH=$GDIST_DIR:$PATH
 fi

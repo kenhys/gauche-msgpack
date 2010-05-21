@@ -14,30 +14,24 @@
   "MSGPACK_SBUFFER_P" "MSGPACK_SBUFFER_UNBOX" "MSGPACK_SBUFFER_BOX")
 
 ;;; static inline void msgpack_sbuffer_init(msgpack_sbuffer* sbuf)
-(define-cproc msgpack-sbuffer-init
-  (sbuf::<msgpack-sbuffer>) ::<void>
-  (body <int>
-        "/*msgpack_sbuffer *pbuf = MSGPACK_SBUFFER_UNBOX(sbuf);*/"
-        "/*msgpack_sbuffer *pbuf = SCM_FOREIGN_POINTER_REF(MsgPackSbufferClass*, (sbuf));*/"
-        "msgpack_sbuffer_init(sbuf);"))
+(define-cproc msgpack-sbuffer-init (sbuf::<msgpack-sbuffer>)
+  (body <void>
+        (msgpack_sbuffer_init sbuf)))
 
 ;; static inline void msgpack_sbuffer_destroy(msgpack_sbuffer* sbuf)
-(define-cproc msgpack-sbuffer-destroy
-  (sbuf)
+(define-cproc msgpack-sbuffer-destroy (sbuf::<msgpack-sbuffer>)
   (body <void>
-        ""))
+        (msgpack_sbuffer_destroy sbuf)))
 
 ;; static inline int msgpack_sbuffer_write(void* data, const char* buf, unsigned int len)
-(define-cproc msgpack-sbuffer-write
-  (data buf len)
-  (body <int>
-        ""))
+;; (define-cproc msgpack-sbuffer-write (data buf len)
+;;   (body <int>
+;;         ""))
 
 ;; static inline char* msgpack_sbuffer_release(msgpack_sbuffer* sbuf)
-(define-cproc msgpack-sbuffer-release
-  (sbuf)
+(define-cproc msgpack-sbuffer-release (sbuf::<msgpack-sbuffer>)
   (body <const-cstring>
-        ""))
+        (msgpack_sbuffer_release sbuf)))
 
 ;; Local variables:
 ;; mode: scheme
