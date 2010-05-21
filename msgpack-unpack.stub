@@ -15,10 +15,25 @@
   "MSGPACK_UNPACKER_P" "MSGPACK_UNPACKER_UNBOX" "MSGPACK_UNPACKER_BOX")
 
 ;; bool msgpack_unpacker_init(msgpack_unpacker* mpac, size_t initial_buffer_size);
+(define-cproc msgpack-unpacker-init (mpac::<msgpack-unpacker>
+                                     size::<int>)
+  (body <boolean>
+        (msgpack_unpacker_init mpac size)))
+
 ;; void msgpack_unpacker_destroy(msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-destroy (mpac::<msgpack-unpacker>)
+  (body <void>
+        (msgpack_unpacker_destroy mpac)))
 
 ;; msgpack_unpacker* msgpack_unpacker_new(size_t initial_buffer_size);
+(define-cproc msgpack-unpacker-new (size::<int>)
+  (body <msgpack-unpacker>
+        (msgpack_unpacker_new size)))
+
 ;; void msgpack_unpacker_free(msgpack_unpacker* mpac);
+(define-cproc msgpack-unpacker-free (mpac::<msgpack-unpacker>)
+  (body <void>
+        (msgpack_unpacker_free mpac)))
 
 ;; static inline bool   msgpack_unpacker_reserve_buffer(msgpack_unpacker* mpac, size_t size);
 ;; static inline char*  msgpack_unpacker_buffer(msgpack_unpacker* mpac);

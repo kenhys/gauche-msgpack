@@ -32,11 +32,11 @@ extern ScmClass *MsgPackSbufferClass;
 #define MSGPACK_OBJECT_BOX(ptr)    Scm_MakeForeignPointer(MsgPackObjectClass, ptr)
 
 #define MSGPACK_PACKER_P(obj)      SCM_XTYPEP(obj, MsgPackPackerClass)
-#define MSGPACK_PACKER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(MsgPackPackerClass*, (obj))
+#define MSGPACK_PACKER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(msgpack_packer*, (obj))
 #define MSGPACK_PACKER_BOX(ptr)    Scm_MakeForeignPointer(MsgPackPackerClass, ptr)
 
 #define MSGPACK_UNPACKER_P(obj)      SCM_XTYPEP(obj, MsgPackUnPackerClass)
-#define MSGPACK_UNPACKER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF((MsgPackUnPackerClass*), (obj))
+#define MSGPACK_UNPACKER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF((msgpack_unpacker*), (obj))
 #define MSGPACK_UNPACKER_BOX(ptr)    Scm_MakeForeignPointer(MsgPackUnPackerClass, ptr)
 
 #define MSGPACK_SBUFFER_P(obj)      SCM_XTYPEP(obj, MsgPackSbufferClass)
