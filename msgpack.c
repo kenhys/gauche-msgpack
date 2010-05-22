@@ -50,7 +50,36 @@ void Scm_Init_msgpack(void)
                                     NULL,
                                     SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
 
-    
+    MsgPackPackerClass =
+        Scm_MakeForeignPointerClass(mod, "<msgpack-packer>",
+                                    NULL,
+                                    NULL,
+                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
+
+    MsgPackUnPackerClass =
+        Scm_MakeForeignPointerClass(mod, "<msgpack-unpacker>",
+                                    NULL,
+                                    NULL,
+                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
+
+    MsgPackObjectClass =
+        Scm_MakeForeignPointerClass(mod, "<msgpack-object>",
+                                    NULL,
+                                    NULL,
+                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
+
+    MsgPackVRefBufferClass =
+        Scm_MakeForeignPointerClass(mod, "<msgpack-vrefbuffer>",
+                                    NULL,
+                                    NULL,
+                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
+
+    MsgPackZoneClass =
+        Scm_MakeForeignPointerClass(mod, "<msgpack-zone>",
+                                    NULL,
+                                    NULL,
+                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
+
     /* Register stub-generated procedures */
     Scm_Init_msgpacklib(mod);
 
