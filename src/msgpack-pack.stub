@@ -4,6 +4,7 @@
 
 "
 #include \"msgpacklib.h\"
+#include <msgpack.h>
 "
 
 ;; The following entry is a dummy one.
@@ -12,37 +13,38 @@
 
 ;;  void msgpack_packer_init(msgpack_packer* pk, void* data, msgpack_packer_write callback);
 (define-cproc msgpack-packer-init
-  (pk data proc)
-  (body <void>
-        (Scm_Error "msgpack-packer-init is not supported.")))
+  (pk::<msgpack-packer> data proc) ::<void>
+  (let* ()
+    (Scm_Error "msgpack-packer-init is not supported.")))
 
 ;;  msgpack_packer* msgpack_packer_new(void* data, msgpack_packer_write callback);
-(define-cproc msgpack-packer-new (data proc)
-  (body <void>
-        "Scm_Error(\"msgpack-packer-new is not supported.\");"))
+(define-cproc msgpack-packer-new
+  (data :optional (proc msgpack-packer-write)) ::<void>
+  (let* ()
+    (Scm_Error "msgpack-packer-new is not supported.")))
 
 ;;  void msgpack_packer_free(msgpack_packer* pk);
-(define-cproc msgpack-packer-free (pk::<msgpack-packer>)
-  (body <void>
-        (msgpack_packer_free pk)))
+(define-cproc msgpack-packer-free 
+  (pk::<msgpack-packer>) ::<void>
+  (msgpack_packer_free (-> pk h)))
 
 ;;  msgpack_pack_short(msgpack_packer* pk, short d);
-(define-cproc msgpack-pack-short (pk::<msgpack-packer>
-                                  d::<short>)
-  (body <int>
-        (result (msgpack_pack_short pk d))))
+(define-cproc msgpack-pack-short
+  (pk::<msgpack-packer>
+   d::<short>) ::<int>
+   (result (msgpack_pack_short (-> pk h) d)))
 
 ;;  msgpack_pack_int(msgpack_pack* pk, int d);
-(define-cproc msgpack-pack-int (pk::<msgpack-packer>
-                                d::<int>)
-  (body <int>
-        (result (msgpack_pack_int pk d))))
+(define-cproc msgpack-pack-int
+  (pk::<msgpack-packer>
+   d::<int>) ::<int>
+   (result (msgpack_pack_int (-> pk h) d)))
 
 ;;  msgpack_pack_long(msgpack_pack* pk, long d);
-(define-cproc msgpack-pack-long (pk::<msgpack-packer>
-                                 d::<long>)
-  (body <int>
-        (result (msgpack_pack_long pk d))))
+(define-cproc msgpack-pack-long
+  (pk::<msgpack-packer>
+   d::<long>) ::<int>
+   (result (msgpack_pack_long (-> pk h) d)))
 
 ;;  msgpack_pack_long_long(msgpack_pack* pk, long long d);
 ;; (define-cproc msgpack-pack-long-long (pk::<msgpack-packer>
@@ -51,22 +53,22 @@
 ;;         (result (msgpack_pack_long_long pk (* d)))))
 
 ;;  msgpack_pack_unsigned_short(msgpack_pack* pk, unsigned short d);
-(define-cproc msgpack-pack-unsigned-short (pk::<msgpack-packer>
-                                           d::<ushort>)
-  (body <int>
-        (result (msgpack_pack_unsigned_short pk d))))
+(define-cproc msgpack-pack-unsigned-short
+  (pk::<msgpack-packer>
+   d::<ushort>) ::<int>
+   (result (msgpack_pack_unsigned_short (-> pk h) d)))
 
 ;;  msgpack_pack_unsigned_int(msgpack_pack* pk, unsigned int d);
-(define-cproc msgpack-pack-unsigned-int (pk::<msgpack-packer>
-                                         d::<uint>)
-  (body <int>
-        (result (msgpack_pack_unsigned_int pk d))))
+(define-cproc msgpack-pack-unsigned-int
+  (pk::<msgpack-packer>
+   d::<uint>) ::<int>
+   (result (msgpack_pack_unsigned_int (-> pk h) d)))
 
 ;;  msgpack_pack_unsigned_long(msgpack_pack* pk, unsigned long d);
-(define-cproc msgpack-pack-unsigned-long (pk::<msgpack-packer>
-                                          d::<ulong>)
-  (body <int>
-        (result (msgpack_pack_unsigned_long pk d))))
+(define-cproc msgpack-pack-unsigned-long
+  (pk::<msgpack-packer>
+   d::<ulong>) ::<int>
+   (result (msgpack_pack_unsigned_long (-> pk h) d)))
 
 ;;  msgpack_pack_unsigned_long_long(msgpack_pack* pk, unsigned long long d);
 ;; (define-cproc msgpack-pack-unsigned-long-long (pk::<msgpack-packer>
@@ -75,22 +77,22 @@
 ;;         (result (msgpack_pack_unsigned_long_long pk (* d)))))
 
 ;;  msgpack_pack_uint8(msgpack_packer* pk, uint8_t d);
-(define-cproc msgpack-pack-uint8 (pk::<msgpack-packer>
-                                  d::<uint8>)
-  (body <int>
-        (result (msgpack_pack_uint8 pk d))))
+(define-cproc msgpack-pack-uint8
+  (pk::<msgpack-packer>
+   d::<uint8>) ::<int>
+   (result (msgpack_pack_uint8 (-> pk h) d)))
 
 ;;  msgpack_pack_uint16(msgpack_packer* pk, uint16_t d);
-(define-cproc msgpack-pack-uint16 (pk::<msgpack-packer>
-                                   d::<uint16>)
-  (body <int>
-        (result (msgpack_pack_uint16 pk d))))
+(define-cproc msgpack-pack-uint16
+  (pk::<msgpack-packer>
+   d::<uint16>) ::<int>
+   (result (msgpack_pack_uint16 (-> pk h) d)))
 
 ;;  msgpack_pack_uint32(msgpack_packer* pk, uint32_t d);
-(define-cproc msgpack-pack-uint32 (pk::<msgpack-packer>
-                                   d::<uint32>)
-  (body <int>
-        (result (msgpack_pack_uint32 pk d))))
+(define-cproc msgpack-pack-uint32
+  (pk::<msgpack-packer>
+   d::<uint32>) ::<int>
+   (result (msgpack_pack_uint32 (-> pk h) d)))
 
 ;;  msgpack_pack_uint64(msgpack_packer* pk, uint64_t d);
 ;; (define-cproc msgpack-pack-uint64 (pk::<msgpack-packer>
@@ -99,22 +101,22 @@
 ;;         (result (msgpack_pack_uint64 pk (* d)))))
 
 ;;  msgpack_pack_int8(msgpack_packer* pk, int8_t d);
-(define-cproc msgpack-pack-int8 (pk::<msgpack-packer>
-                                   d::<int8>)
-  (body <int>
-        (result (msgpack_pack_int8 pk d))))
+(define-cproc msgpack-pack-int8
+  (pk::<msgpack-packer>
+   d::<int8>) ::<int>
+   (result (msgpack_pack_int8 (-> pk h) d)))
 
 ;;  msgpack_pack_int16(msgpack_packer* pk, int16_t d);
-(define-cproc msgpack-pack-int16 (pk::<msgpack-packer>
-                                   d::<int16>)
-  (body <int>
-        (result (msgpack_pack_int16 pk d))))
+(define-cproc msgpack-pack-int16
+  (pk::<msgpack-packer>
+   d::<int16>) ::<int>
+   (result (msgpack_pack_int16 (-> pk h) d)))
 
 ;;  msgpack_pack_int32(msgpack_packer* pk, int32_t d);
 (define-cproc msgpack-pack-int32 (pk::<msgpack-packer>
                                   d::<int32>)
   (body <int>
-        (result (msgpack_pack_int32 pk d))))
+        (result (msgpack_pack_int32 (-> pk h) d))))
 
 ;;  msgpack_pack_int64(msgpack_packer* pk, int64_t d);
 ;; (define-cproc msgpack-pack-int64 (pk::<msgpack-packer>
@@ -126,51 +128,54 @@
 (define-cproc msgpack-pack-float (pk::<msgpack-packer>
                                    d::<float>)
   (body <int>
-        (result (msgpack_pack_float pk d))))
+        (result (msgpack_pack_float (-> pk h) d))))
 
 ;;  msgpack_pack_double(msgpack_packer* pk, double d);
 (define-cproc msgpack-pack-double (pk::<msgpack-packer>
                                    d::<double>)
   (body <int>
-        (result (msgpack_pack_double pk d))))
+        (result (msgpack_pack_double (-> pk h) d))))
 
 ;;  msgpack_pack_nil(msgpack_packer* pk);
 (define-cproc msgpack-pack-nil (pk::<msgpack-packer>)
-  (body <int> (result (msgpack_pack_nil pk))))
+  (body <int> (result (msgpack_pack_nil (-> pk h)))))
 
 ;;  msgpack_pack_true(msgpack_packer* pk);
 (define-cproc msgpack-pack-true (pk::<msgpack-packer>)
-  (body <int> (result (msgpack_pack_true pk))))
+  (body <int> (result (msgpack_pack_true (-> pk h)))))
 
 ;;  msgpack_pack_false(msgpack_packer* pk);
 (define-cproc msgpack-pack-false (pk::<msgpack-packer>)
-  (body <int> (result (msgpack_pack_false pk))))
+  (body <int> (result (msgpack_pack_false (-> pk h)))))
 
 ;;  msgpack_pack_array(msgpack_packer* pk, unsigned int n);
 (define-cproc msgpack-pack-array (pk::<msgpack-packer>
                                   n::<uint>)
-  (body <int> (result (msgpack_pack_array pk n))))
+  (body <int> (result (msgpack_pack_array (-> pk h) n))))
 
 ;;  msgpack_pack_map(msgpack_packer* pk, unsigned int n);
-(define-cproc msgpack-pack-map (pk::<msgpack-packer>
-                                  n::<uint>)
-  (body <int> (result (msgpack_pack_map pk n))))
+(define-cproc msgpack-pack-map
+  (pk::<msgpack-packer>
+   n::<uint>) ::<int>
+   (let* ()
+     (result (msgpack_pack_map (-> pk h) n))))
 
 ;;  msgpack_pack_raw(msgpack_packer* pk, size_t l);
 ;; (define-cproc msgpack-pack-raw (pk::<msgpack-packer>
 ;;                                 l::<size>)
-;;   (body <int> (result (msgpack_pack_raw pk (* l)))))
+;;   (body <int> (result (msgpack_pack_raw (-> pk h) (* l)))))
 
 ;; TBD.
 ;;  msgpack_pack_raw_body(msgpack_packer* pk, const void* b, size_t l);
 ;; (define-cproc msgpack-pack-raw-body (pk::<msgpack-packer>
 ;;                                      l::<int>)
-;;   (body <int> (result (msgpack_pack_raw pk l))))
+;;   (body <int> (result (msgpack_pack_raw (-> pk h) l))))
 
 ;; int msgpack_pack_object(msgpack_packer* pk, msgpack_object d);
-(define-cproc msgpack-pack-object (pk::<msgpack-packer>
-                                   d::<msgpack-object>)
-  (body <int> (result (msgpack_pack_object pk (* d)))))
+(define-cproc msgpack-pack-object
+  (pk::<msgpack-packer>
+   d::<msgpack-object>) ::<int>
+  (result (msgpack_pack_object (-> pk h) (-> d h))))
 
 
 ;; Local variables:

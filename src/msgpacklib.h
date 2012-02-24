@@ -84,7 +84,7 @@ SCM_CLASS_DECL(Scm_MsgpackObjectKvClass);
 
 typedef struct ScmMsgpackPackerRec {
 SCM_HEADER;
-msgpack_packer h;
+msgpack_packer *h;
 } ScmMsgpackPacker;
 
 SCM_CLASS_DECL(Scm_MsgpackPackerClass);
