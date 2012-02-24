@@ -110,10 +110,10 @@ if test "$ac_cv_use_msgpack" = yes; then
   save_libs="$LIBS"
   CFLAGS="$CFLAGS $MSGPACK_CPPFLAGS"
   LDFLAGS="$LDFLAGS $MSGPACK_LDFLAGS"
-  LIBS="$LIBS -lmsgpack -lz"
+  LIBS="$LIBS -lmsgpackc -lz"
   AC_LINK_IFELSE(
     [AC_LANG_PROGRAM([#include <msgpack.h>],
-                     [[MSGPACK_GetVersion();]])],
+                     [[msgpack_version();]])],
     [MSGPACK_LIBS="$MSGPACK_LDFLAGS -lmsgpackc"],
     [AC_MSG_WARN("Can't find libmsgpackc so I turned off using msgpack; you may want to use --with-msgpack=PATH")
       ac_cv_use_msgpack=no])

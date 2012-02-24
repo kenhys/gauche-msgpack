@@ -4,7 +4,7 @@ dnl  process this file with autoconf to generate 'configure'.
 dnl
 
 AC_PREREQ(2.54)
-AC_INIT(msgpack, 1.0, shiro@acm.org)
+AC_INIT(msgpack, 0.1, kenhys@gmail.com)
 dnl If you want to use the system name (OS, architecture, etc) in the
 dnl configure, uncomment the following line.  In such a case, you need
 dnl to copy config.guess and config.sub from automake distribution.
@@ -59,6 +59,21 @@ dnl Add your macro calls to check existence of programs, if you have any.
 dnl Check for libraries
 dnl Add your macro calls to check required libraries, if you have any.
 
+m4_include([msgpack.m4])
+
+# options for configure scripts
+AC_ARG_ENABLE(debug,
+   AC_HELP_STRING([--enable-debug], [enable Gauche-msgpack debug mode.]), [
+   GAUCHE_MSGPACK_DEBUG=-DGAUCHE_MSGPACK_DEBUG
+])
+if test "$enable_debug" = "yes"; then
+  MSGPACK_DEBUG=yes
+else
+  MSGPACK_DEBUG=no
+fi
+AC_SUBST(GAUCHE_MSGPACK_DEBUG)
+
+
 dnl Creating gpd (gauche package description) file
 GAUCHE_PACKAGE_CONFIGURE_ARGS="`echo ""$ac_configure_args"" | sed 's/[\\""\`\$]/\\\&/g'`"
 AC_MSG_NOTICE([creating ${PACKAGE_NAME}.gpd])
@@ -68,5 +83,13 @@ $GAUCHE_PACKAGE make-gpd "$PACKAGE_NAME" \
 
 dnl Output
 echo $PACKAGE_VERSION > VERSION
-AC_OUTPUT(Makefile)
+AC_OUTPUT(Makefile src/Makefile test/Makefile)
+
+AC_MSG_RESULT(
+[
+       msgpack: $MSGPACK_VERSION
+       version: $PACKAGE_VERSION
+         debug: $MSGPACK_DEBUG
+          zlib: $HAVE_ZLIB])
+
 
