@@ -10,8 +10,15 @@
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
 
-(define-cproc msgpack-object-print (out o)
-  )
+(define-cproc msgpack-version () ::<const-cstring>
+  (result (msgpack_version)))
+
+(define-cproc msgpack-version-major () ::<int>
+  (result (msgpack_version_major)))
+
+(define-cproc msgpack-version-minor () ::<int>
+  (result (msgpack_version_minor)))
+
 ;; Local variables:
 ;; mode: scheme
 ;; end:

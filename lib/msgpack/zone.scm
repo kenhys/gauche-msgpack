@@ -1,11 +1,11 @@
 ;;;
-;;; msgpack
+;;; msgpack.zone
 ;;;
 
 (define-module msgpack.zone
-  (export test-msgpack ;; dummy
-          )
-  )
+  (extend msgpack)
+  (export-all))
+
 (select-module msgpack.zone)
 
 ;; Loads extension

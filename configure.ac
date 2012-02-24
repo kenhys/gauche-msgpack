@@ -62,6 +62,7 @@ dnl Add your macro calls to check required libraries, if you have any.
 m4_include([msgpack.m4])
 
 # options for configure scripts
+GAUCHE_MSGPACK_DEBUG=""
 AC_ARG_ENABLE(debug,
    AC_HELP_STRING([--enable-debug], [enable Gauche-msgpack debug mode.]), [
    GAUCHE_MSGPACK_DEBUG=-DGAUCHE_MSGPACK_DEBUG

@@ -3,8 +3,9 @@
 ;;;
 
 (define-module msgpack.object
-  (export-all)
-  )
+  (extend msgpack)
+  (export-all))
+
 (select-module msgpack.object)
 
 ;; Loads extension
@@ -14,5 +15,6 @@
 ;; Put your Scheme definitions here
 ;;
 
-
+;; Epilogue
+(provide "msgpack.object")
 

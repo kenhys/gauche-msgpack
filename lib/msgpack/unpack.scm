@@ -3,9 +3,9 @@
 ;;;
 
 (define-module msgpack.unpack
-  (export test-msgpack ;; dummy
-          )
-  )
+  (extend msgpack)
+  (export-all))
+
 (select-module msgpack.unpack)
 
 ;; Loads extension

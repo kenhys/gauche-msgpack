@@ -3,9 +3,9 @@
 ;;;
 
 (define-module msgpack.vrefbuffer
-  (export test-msgpack ;; dummy
-          )
-  )
+  (extend msgpack)
+  (export-all))
+
 (select-module msgpack.vrefbuffer)
 
 ;; Loads extension
@@ -14,6 +14,9 @@
 ;;
 ;; Put your Scheme definitions here
 ;;
+
+;; Epilogue
+(provide "msgpack.vrefbuffer")
 
 
 

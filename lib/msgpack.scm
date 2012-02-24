@@ -3,8 +3,15 @@
 ;;;
 
 (define-module msgpack
-  (export-all)
-  )
+  (extend
+   msgpack.object
+   msgpack.zone
+   msgpack.pack
+   msgpack.unpack
+   msgpack.sbuffer
+   msgpack.vrefbuffer)
+  (export-all))
+
 (select-module msgpack)
 
 ;; Loads extension
@@ -14,5 +21,6 @@
 ;; Put your Scheme definitions here
 ;;
 
-
+;; Epilogue
+(provide "msgpack")
 

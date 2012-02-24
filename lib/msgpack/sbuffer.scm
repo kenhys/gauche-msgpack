@@ -3,9 +3,9 @@
 ;;;
 
 (define-module msgpack.sbuffer
-  (export test-msgpack ;; dummy
-          )
-  )
+  (extend msgpack)
+  (export-all))
+
 (select-module msgpack.sbuffer)
 
 ;; Loads extension
@@ -15,5 +15,8 @@
 ;; Put your Scheme definitions here
 ;;
 
+
+;; Epilogue
+(provide "msgpack.sbuffer")
 
 
