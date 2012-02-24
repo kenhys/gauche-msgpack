@@ -48,7 +48,7 @@ msgpack_SRCS = $(srcdir)/msgpack.c $(srcdir)/msgpacklib.stub $(srcdir)/msgpack-o
 
 all : $(TARGET)
 
-gauche--msgpack.$(SOEXT): $(msgpack_SRCS)
+gauche--msgpack.$(SOEXT): $(msgpack_SRCS) msgpack.types msgpacklib.h
 	$(GAUCHE_PACKAGE) compile \
 	  --local=$(LOCAL_PATHS) --ldflags="$(LDFLAGS)" --libs="$(LIBS)" --cflags="$(CPPFLAGS)" --verbose gauche--msgpack $(msgpack_SRCS)
 

@@ -1,0 +1,53 @@
+;; -*- mode:scheme; coding:utf-8 -*-
+
+(define-type <msgpack-packer> "msgpack_packer*" #f
+  "SCM_MSGPACK_PACKER_P" "SCM_MSGPACK_PACKER")
+(define-type <msgpack-object> "msgpack_object*" #f
+  "SCM_MSGPACK_OBJECT_P" "SCM_MSGPACK_OBJECT")
+
+(define-type <longlong> "long long*" #f
+  "SCM_LONGLONG_P" "SCM_LONGLONG")
+ (define-type <ulonglong> "unsigned long long*" #f
+   "SCM_ULONGLONG_P" "SCM_ULONGLONG")
+
+(define-type <int64> "int64_t*" #f
+   "SCM_INT64_P" "SCM_INT64")
+(define-type <uint64> "uint64_t*" #f
+  "SCM_UINT64_P" "SCM_UINT64")
+(define-type <size_t> "size_t*" #f
+  "SCM_SIZE_T_P" "SCM_SIZE_T")
+
+
+;; 
+;; msgpack-object
+;;
+(define-type <msgpack-object-array> "msgpack_object_array*" #f
+  "SCM_MSGPACK_OBJECT_ARRAY_P" "SCM_MSGPACK_OBJECT_ARRAY")
+(define-type <msgpack-object-map> "msgpack_object_map*" #f
+  "SCM_MSGPACK_OBJECT_MAP_P" "SCM_MSGPACK_OBJECT_MAP")
+(define-type <msgpack-object-raw> "msgpack_object_raw*" #f
+  "SCM_MSGPACK_OBJECT_RAW_P" "SCM_MSGPACK_OBJECT_RAW")
+(define-type <msgpack-object-union> "msgpack_object_union*" #f
+  "SCM_MSGPACK_OBJECT_UNION_P" "SCM_MSGPACK_OBJECT_UNION")
+
+(define-type <msgpack-object-kv> "msgpack_object_kv*" #f
+  "SCM_MSGPACK_OBJECT_KV_P" "SCM_MSGPACK_OBJECT_KV")
+
+
+(define-type <msgpack-unpacker> "msgpack_unpacker*" #f
+  "SCM_MSGPACK_UNPACKER_P" "SCM_MSGPACK_UNPACKER")
+(define-type <msgpack-zone> "msgpack_zone*" #f
+  "SCM_MSGPACK_ZONE_P" "SCM_MSGPACK_ZONE")
+
+
+(define-type <msgpack-vrefbuffer>
+	      "msgpack_vrefbuffer*" #f
+ "SCM_MSGPACK_VREFBUFFER_P" "MSGPACK_VREFBUFFER")
+
+
+(define-type <msgpack-sbuffer> "msgpack_sbuffer*" #f
+  "SCM_MSGPACK_SBUFFER_P" "SCM_MSGPACK_SBUFFER")
+
+(define-type <msgpack-zone> "msgpack_zone*" #f
+  "SCM_MSGPACK_ZONE_P" "SCM_MSGPACK_ZONE")
+

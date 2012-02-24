@@ -6,17 +6,15 @@
 #include \"msgpacklib.h\"
 "
 
+(include "msgpack.types")
+
 (define-enum MSGPACK_UNPACK_SUCCESS)
 (define-enum MSGPACK_UNPACK_EXTRA_BYTES)
 (define-enum MSGPACK_UNPACK_CONTINUE)
 (define-enum MSGPACK_UNPACK_PARSE_ERROR)
 
-(define-type <msgpack-unpacker> "msgpack_unpacker*" "msgpack unpacker"
-  "MSGPACK_UNPACKER_P" "MSGPACK_UNPACKER_UNBOX" "MSGPACK_UNPACKER_BOX")
-(define-type <msgpack-object> "msgpack_object*" "msgpack object"
-  "MSGPACK_OBJECT_P" "MSGPACK_OBJECT_UNBOX" "MSGPACK_OBJECT_BOX")
-(define-type <msgpack-zone> "msgpack_zone*" "msgpack zone"
-  "MSGPACK_ZONE_P" "MSGPACK_ZONE_UNBOX" "MSGPACK_ZONE_BOX")
+
+"#if 0
 
 ;; bool msgpack_unpacker_init(msgpack_unpacker* mpac, size_t initial_buffer_size);
 (define-cproc msgpack-unpacker-init (mpac::<msgpack-unpacker>
@@ -101,6 +99,7 @@
                                               size::<int>)
   (body <boolean> (result (msgpack_unpacker_expand_buffer mpac size))))
 
+#endif"
 
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.

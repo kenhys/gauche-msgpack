@@ -65,8 +65,7 @@ uninstall :
 	$(INSTALL) -U $(GAUCHE_PKGLIBDIR)/.packages $(PACKAGE).gpd
 
 clean :
-	$(GAUCHE_PACKAGE) compile --clean msgpack $(msgpack_SRCS)
-	rm -rf core $(TARGET) $(GENERATED) *~ test.log so_locations
+	cd src; $(MAKE) clean
 
 distclean : clean
 	rm -rf $(CONFIG_GENERATED)

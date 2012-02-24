@@ -6,11 +6,13 @@
 #include \"msgpacklib.h\"
 "
 
+(include "msgpack.types")
+
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
 
-(define-type <msgpack-vrefbuffer> "msgpack_vrefbuffer*" "msgpack vrefbuffer"
-  "MSGPACK_VREFBUFFER_P" "MSGPACK_VREFBUFFER_UNBOX" "MSGPACK_VREFBUFFER_BOX")
+"#if 0
+
 
 ;; bool msgpack_vrefbuffer_init(msgpack_vrefbuffer* vbuf,
 ;; 		size_t ref_size, size_t chunk_size);
@@ -39,6 +41,7 @@
 ;; 		const char* buf, unsigned int len);
 
 ;; int msgpack_vrefbuffer_migrate(msgpack_vrefbuffer* vbuf, msgpack_vrefbuffer* to);
+#endif"
 
 ;; Local variables:
 ;; mode: scheme

@@ -10,8 +10,7 @@
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
 
-(define-type <msgpack-sbuffer> "msgpack_sbuffer*" "msgpack-sbuffer"
-  "MSGPACK_SBUFFER_P" "MSGPACK_SBUFFER_UNBOX" "MSGPACK_SBUFFER_BOX")
+"#if 0
 
 ;;; static inline void msgpack_sbuffer_init(msgpack_sbuffer* sbuf)
 (define-cproc msgpack-sbuffer-init (sbuf::<msgpack-sbuffer>)
@@ -33,6 +32,8 @@
 (define-cproc msgpack-sbuffer-release (sbuf::<msgpack-sbuffer>)
   (body <const-cstring>
         (msgpack_sbuffer_release sbuf)))
+
+#endif"
 
 ;; Local variables:
 ;; mode: scheme

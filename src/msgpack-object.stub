@@ -18,22 +18,10 @@
 (define-enum MSGPACK_OBJECT_ARRAY)
 (define-enum MSGPACK_OBJECT_MAP)
 
-(define-type <msgpack-object-array> "msgpack_object_array*" "msgpack_object_array"
-  "MSGPACK_OBJECT_ARRAY_P" "MSGPACK_OBJECT_ARRAY_UNBOX" "MSGPACK_OBJECT_ARRAY_BOX")
-(define-type <msgpack-object-map> "msgpack_object_map*" "msgpack_object_map"
-  "MSGPACK_OBJECT_MAP_P" "MSGPACK_OBJECT_MAP_UNBOX" "MSGPACK_OBJECT_MAP_BOX")
-(define-type <msgpack-object-raw> "msgpack_object_raw*" "msgpack_object_raw"
-  "MSGPACK_OBJECT_RAW_P" "MSGPACK_OBJECT_RAW_UNBOX" "MSGPACK_OBJECT_RAW_BOX")
-(define-type <msgpack-object-union> "msgpack_object_union*" "msgpack_object_union"
-  "MSGPACK_OBJECT_UNION_P" "MSGPACK_OBJECT_UNION_UNBOX" "MSGPACK_OBJECT_UNION_BOX")
-(define-type <msgpack-object> "msgpack_object*" "msgpack_object"
-  "MSGPACK_OBJECT_P" "MSGPACK_OBJECT_UNBOX" "MSGPACK_OBJECT_BOX")
-(define-type <msgpack-object-kv> "msgpack_object_kv*" "msgpack_object_kv"
-  "MSGPACK_OBJECT_KV_P" "MSGPACK_OBJECT_KV_UNBOX" "MSGPACK_OBJECT_KV_BOX")
-
 (define-cproc msgpack-object-print
-  (port obj)
-  (body <void> "Scm_Error(\"msgpack_object_print is not supported.\");"))
+  (port obj) ::<void>
+  (let* ()
+    (Scm_Error "msgpack_object_print is not supported.")))
 
 (define-cproc msgpack-object-equal
   (x y) ::<boolean>

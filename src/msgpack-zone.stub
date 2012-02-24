@@ -9,24 +9,20 @@
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
 
-(define-type <msgpack-zone> "msgpack_zone*" "msgpack zone"
-  "MSGPACK_ZONE_P" "MSGPACK_ZONE_UNBOX" "MSGPACK_ZONE_BOX")
-(define-type <size> "size_t*" "size_t"
-  "SCM_SIZE_T_P" "SCM_SIZE_T_UNBOX" "SCM_SIZE_T_BOX")
-
+(include "msgpack.types")
 
 ;; bool msgpack_zone_init(msgpack_zone* zone, size_t chunk_size);
-(define-cproc msgpack-zone-init (zone::<msgpack-zone>
-                                 chunk::<size>)
-  (body <boolean> (result (msgpack_zone_init zone (* chunk)))))
+;; (define-cproc msgpack-zone-init (zone::<msgpack-zone>
+;;                                  chunk::<size>)
+;;   (body <boolean> (result (msgpack_zone_init zone (* chunk)))))
 
 ;; void msgpack_zone_destroy(msgpack_zone* zone);
 (define-cproc msgpack-zone-destroy (zone::<msgpack-zone>)
   (body <void> (msgpack_zone_destroy zone)))
 
 ;; msgpack_zone* msgpack_zone_new(size_t chunk_size);
-(define-cproc msgpack-zone-new (chunk::<size>)
-  (body <msgpack-zone> (result (msgpack_zone_new (* chunk)))))
+;; (define-cproc msgpack-zone-new (chunk::<size>)
+;;   (body <msgpack-zone> (result (msgpack_zone_new (* chunk)))))
 
 ;; void msgpack_zone_free(msgpack_zone* zone);
 (define-cproc msgpack-zone-free (zone::<msgpack-zone>)
@@ -50,6 +46,7 @@
 ;; void msgpack_zone_clear(msgpack_zone* zone);
 (define-cproc msgpack-zone-clear (zone::<msgpack-zone>)
   (body <void> (msgpack_zone_clear zone)))
+
 
 ;; void* msgpack_zone_malloc_expand(msgpack_zone* zone, size_t size);
 

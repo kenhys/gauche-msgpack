@@ -8,23 +8,7 @@
 
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
-
-(define-type <msgpack-packer> "msgpack_packer*" "msgpack_packer"
-  "MSGPACK_PACKER_P" "MSGPACK_PACKER_UNBOX" "MSGPACK_PACKER_BOX")
-(define-type <msgpack-object> "msgpack_object*" "msgpack object"
-  "MSGPACK_OBJECT_P" "MSGPACK_OBJECT_UNBOX" "MSGPACK_OBJECT_BOX")
-
-(define-type <longlong> "long long*" "long long"
-  "SCM_LONGLONG_P" "SCM_LONGLONG_UNBOX" "SCM_LONGLONG_BOX")
-(define-type <ulonglong> "unsigned long long*" "unsigned long long"
-  "SCM_ULONGLONG_P" "SCM_ULONGLONG_UNBOX" "SCM_ULONGLONG_BOX")
-
-(define-type <int64> "int64_t*" "int64_t"
-  "SCM_INT64_P" "SCM_INT64_UNBOX" "SCM_INT64_BOX")
-(define-type <uint64> "uint64_t*" "uint64_t"
-  "SCM_UINT64_P" "SCM_UINT64_UNBOX" "SCM_UINT64_BOX")
-(define-type <size> "size_t*" "size_t"
-  "SCM_SIZE_T_P" "SCM_SIZE_T_UNBOX" "SCM_SIZE_T_BOX")
+(include "msgpack.types")
 
 ;;  void msgpack_packer_init(msgpack_packer* pk, void* data, msgpack_packer_write callback);
 (define-cproc msgpack-packer-init
@@ -61,10 +45,10 @@
         (result (msgpack_pack_long pk d))))
 
 ;;  msgpack_pack_long_long(msgpack_pack* pk, long long d);
-(define-cproc msgpack-pack-long-long (pk::<msgpack-packer>
-                                      d::<longlong>)
-  (body <int>
-        (result (msgpack_pack_long_long pk (* d)))))
+;; (define-cproc msgpack-pack-long-long (pk::<msgpack-packer>
+;;                                       d::<longlong>)
+;;   (body <int>
+;;         (result (msgpack_pack_long_long pk (* d)))))
 
 ;;  msgpack_pack_unsigned_short(msgpack_pack* pk, unsigned short d);
 (define-cproc msgpack-pack-unsigned-short (pk::<msgpack-packer>
@@ -85,10 +69,10 @@
         (result (msgpack_pack_unsigned_long pk d))))
 
 ;;  msgpack_pack_unsigned_long_long(msgpack_pack* pk, unsigned long long d);
-(define-cproc msgpack-pack-unsigned-long-long (pk::<msgpack-packer>
-                                               d::<ulonglong>)
-  (body <int>
-        (result (msgpack_pack_unsigned_long_long pk (* d)))))
+;; (define-cproc msgpack-pack-unsigned-long-long (pk::<msgpack-packer>
+;;                                                d::<ulonglong>)
+;;   (body <int>
+;;         (result (msgpack_pack_unsigned_long_long pk (* d)))))
 
 ;;  msgpack_pack_uint8(msgpack_packer* pk, uint8_t d);
 (define-cproc msgpack-pack-uint8 (pk::<msgpack-packer>
@@ -109,10 +93,10 @@
         (result (msgpack_pack_uint32 pk d))))
 
 ;;  msgpack_pack_uint64(msgpack_packer* pk, uint64_t d);
-(define-cproc msgpack-pack-uint64 (pk::<msgpack-packer>
-                                   d::<uint64>)
-  (body <int>
-        (result (msgpack_pack_uint64 pk (* d)))))
+;; (define-cproc msgpack-pack-uint64 (pk::<msgpack-packer>
+;;                                    d::<uint64>)
+;;   (body <int>
+;;         (result (msgpack_pack_uint64 pk (* d)))))
 
 ;;  msgpack_pack_int8(msgpack_packer* pk, int8_t d);
 (define-cproc msgpack-pack-int8 (pk::<msgpack-packer>
@@ -133,10 +117,10 @@
         (result (msgpack_pack_int32 pk d))))
 
 ;;  msgpack_pack_int64(msgpack_packer* pk, int64_t d);
-(define-cproc msgpack-pack-int64 (pk::<msgpack-packer>
-                                  d::<int64>)
-  (body <int>
-        (result (msgpack_pack_int64 pk (* d)))))
+;; (define-cproc msgpack-pack-int64 (pk::<msgpack-packer>
+;;                                   d::<int64>)
+;;   (body <int>
+;;         (result (msgpack_pack_int64 pk (* d)))))
 
 ;;  msgpack_pack_float(msgpack_packer* pk, float d);
 (define-cproc msgpack-pack-float (pk::<msgpack-packer>
@@ -173,9 +157,9 @@
   (body <int> (result (msgpack_pack_map pk n))))
 
 ;;  msgpack_pack_raw(msgpack_packer* pk, size_t l);
-(define-cproc msgpack-pack-raw (pk::<msgpack-packer>
-                                l::<size>)
-  (body <int> (result (msgpack_pack_raw pk (* l)))))
+;; (define-cproc msgpack-pack-raw (pk::<msgpack-packer>
+;;                                 l::<size>)
+;;   (body <int> (result (msgpack_pack_raw pk (* l)))))
 
 ;; TBD.
 ;;  msgpack_pack_raw_body(msgpack_packer* pk, const void* b, size_t l);

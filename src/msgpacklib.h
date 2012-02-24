@@ -8,76 +8,135 @@
 
 #include <gauche.h>
 #include <gauche/extend.h>
+#include <gauche/class.h>
 
 SCM_DECL_BEGIN
 
+
 #include "msgpack.h"
+
 /*
  * The following entry is a dummy one.
  * Replace it for your declarations.
  */
 
-extern ScmClass *MsgPackObjectArrayClass;
-extern ScmClass *MsgPackObjectClass;
-extern ScmClass *MsgPackPackerClass;
-extern ScmClass *MsgPackUnPackerClass;
-extern ScmClass *MsgPackSbufferClass;
-extern ScmClass *MsgPackVRefBufferClass;
-extern ScmClass *MsgPackZoneClass;
+typedef struct ScmMsgpackObjectArrayRec {
+SCM_HEADER;
+msgpack_object_array h;
+} ScmMsgpackObjectArray;
 
-extern ScmClass *ScmLongLongClass;
-extern ScmClass *ScmULongLongClass;
-extern ScmClass *ScmInt64Class;
-extern ScmClass *ScmUInt64Class;
-extern ScmClass *ScmSizeTClass;
+SCM_CLASS_DECL(Scm_MsgpackObjectArrayClass);
+#define SCM_CLASS_MSGPACK_OBJECT_ARRAY (&Scm_MsgpackObjectArrayClass)
+#define SCM_MSGPACK_OBJECT_ARRAY(obj) ((ScmMsgpackObjectArray*)(obj))
+#define SCM_MSGPACK_OBJECT_ARRAY_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_OBJECT_ARRAY))
 
-#define MSGPACK_OBJECT_ARRAY_P(obj)      SCM_XTYPEP(obj, MsgPackObjectArrayClass)
-#define MSGPACK_OBJECT_ARRAY_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(msgpack_object_array*, (obj))
-#define MSGPACK_OBJECT_ARRAY_BOX(ptr)    Scm_MakeForeignPointer(MsgPackObjectArrayClass, ptr)
 
-#define MSGPACK_OBJECT_P(obj)      SCM_XTYPEP(obj, MsgPackObjectClass)
-#define MSGPACK_OBJECT_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(msgpack_object*, (obj))
-#define MSGPACK_OBJECT_BOX(ptr)    Scm_MakeForeignPointer(MsgPackObjectClass, ptr)
+typedef struct ScmMsgpackObjectMapRec {
+SCM_HEADER;
+msgpack_object_map h;
+} ScmMsgpackObjectMap;
 
-#define MSGPACK_PACKER_P(obj)      SCM_XTYPEP(obj, MsgPackPackerClass)
-#define MSGPACK_PACKER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(msgpack_packer*, (obj))
-#define MSGPACK_PACKER_BOX(ptr)    Scm_MakeForeignPointer(MsgPackPackerClass, ptr)
+SCM_CLASS_DECL(Scm_MsgpackObjectMapClass);
+#define SCM_CLASS_MSGPACK_OBJECT_MAP (&Scm_MsgpackObjectMapClass)
+#define SCM_MSGPACK_OBJECT_MAP(obj) ((ScmMsgpackObjectMap*)(obj))
+#define SCM_MSGPACK_OBJECT_MAP_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_OBJECT_MAP))
 
-#define MSGPACK_UNPACKER_P(obj)      SCM_XTYPEP(obj, MsgPackUnPackerClass)
-#define MSGPACK_UNPACKER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(msgpack_unpacker*, (obj))
-#define MSGPACK_UNPACKER_BOX(ptr)    Scm_MakeForeignPointer(MsgPackUnPackerClass, ptr)
+typedef struct ScmMsgpackObjectRawRec {
+SCM_HEADER;
+msgpack_object_raw h;
+} ScmMsgpackObjectRaw;
 
-#define MSGPACK_SBUFFER_P(obj)      SCM_XTYPEP(obj, MsgPackSbufferClass)
-#define MSGPACK_SBUFFER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(msgpack_sbuffer*, (obj))
-#define MSGPACK_SBUFFER_BOX(ptr)    Scm_MakeForeignPointer(MsgPackSbufferClass, ptr)
+SCM_CLASS_DECL(Scm_MsgpackObjectRawClass);
+#define SCM_CLASS_MSGPACK_OBJECT_RAW (&Scm_MsgpackObjectRawClass)
+#define SCM_MSGPACK_OBJECT_RAW(obj) ((ScmMsgpackObjectRaw*)(obj))
+#define SCM_MSGPACK_OBJECT_RAW_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_OBJECT_RAW))
 
-#define MSGPACK_VREFBUFFER_P(obj)      SCM_XTYPEP(obj, MsgPackVRefBufferClass)
-#define MSGPACK_VREFBUFFER_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(msgpack_vrefbuffer*, (obj))
-#define MSGPACK_VREFBUFFER_BOX(ptr)    Scm_MakeForeignPointer(MsgPackVRefBufferClass, ptr)
+typedef struct ScmMsgpackObjectUnionRec {
+SCM_HEADER;
+msgpack_object_union h;
+} ScmMsgpackObjectUnion;
 
-#define MSGPACK_ZONE_P(obj)      SCM_XTYPEP(obj, MsgPackZoneClass)
-#define MSGPACK_ZONE_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(msgpack_zone*, (obj))
-#define MSGPACK_ZONE_BOX(ptr)    Scm_MakeForeignPointer(MsgPackZoneClass, ptr)
+SCM_CLASS_DECL(Scm_MsgpackObjectUnionClass);
+#define SCM_CLASS_MSGPACK_OBJECT_UNION (&Scm_MsgpackObjectUnionClass)
+#define SCM_MSGPACK_OBJECT_UNION(obj) ((ScmMsgpackObjectUnion*)(obj))
+#define SCM_MSGPACK_OBJECT_UNION_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_OBJECT_UNION))
 
-#define SCM_LONGLONG_P(obj)      SCM_XTYPEP(obj, ScmLongLongClass)
-#define SCM_LONGLONG_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(long long*, (obj))
-#define SCM_LONGLONG_BOX_BOX(ptr)    Scm_MakeForeignPointer(ScmLongLongClass, ptr)
+typedef struct ScmMsgpackObjectRec {
+SCM_HEADER;
+msgpack_object h;
+} ScmMsgpackObject;
 
-#define SCM_ULONGLONG_P(obj)      SCM_XTYPEP(obj, ScmULongLongClass)
-#define SCM_ULONGLONG_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(unsigned long long*, (obj))
-#define SCM_ULONGLONG_BOX_BOX(ptr)    Scm_MakeForeignPointer(ScmULongLongClass, ptr)
+SCM_CLASS_DECL(Scm_MsgpackObjectClass);
+#define SCM_CLASS_MSGPACK_OBJECT (&Scm_MsgpackObjectClass)
+#define SCM_MSGPACK_OBJECT(obj) ((ScmMsgpackObject*)(obj))
+#define SCM_MSGPACK_OBJECT_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_OBJECT))
 
-#define SCM_INT64_P(obj)      SCM_XTYPEP(obj, ScmInt64Class)
-#define SCM_INT64_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(int64_t*, (obj))
-#define SCM_INT64_BOX(ptr)    Scm_MakeForeignPointer(ScmInt64Class, ptr)
+typedef struct ScmMsgpackObjectKvRec {
+SCM_HEADER;
+msgpack_object_kv h;
+} ScmMsgpackObjectKv;
 
-#define SCM_UINT64_P(obj)      SCM_XTYPEP(obj, ScmUInt64Class)
-#define SCM_UINT64_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(uint64_t*, (obj))
-#define SCM_UINT64_BOX(ptr)    Scm_MakeForeignPointer(ScmUInt64Class, ptr)
+SCM_CLASS_DECL(Scm_MsgpackObjectKvClass);
+#define SCM_CLASS_MSGPACK_OBJECT_KV (&Scm_MsgpackObjectKvClass)
+#define SCM_MSGPACK_OBJECT_KV(obj) ((ScmMsgpackObjectKv*)(obj))
+#define SCM_MSGPACK_OBJECT_KV_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_OBJECT_KV))
 
-#define SCM_SIZE_T_P(obj)      SCM_XTYPEP(obj, ScmSizeTClass)
-#define SCM_SIZE_T_UNBOX(obj)  SCM_FOREIGN_POINTER_REF(size_t*, (obj))
-#define SCM_SIZE_T_BOX(ptr)    Scm_MakeForeignPointer(ScmSizeTClass, ptr)
+
+typedef struct ScmMsgpackPackerRec {
+SCM_HEADER;
+msgpack_packer h;
+} ScmMsgpackPacker;
+
+SCM_CLASS_DECL(Scm_MsgpackPackerClass);
+#define SCM_CLASS_MSGPACK_PACKER (&Scm_MsgpackPackerClass)
+#define SCM_MSGPACK_PACKER(obj) ((ScmMsgpackPacker*)(obj))
+#define SCM_MSGPACK_PACKER_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_PACKER))
+
+typedef struct ScmMsgpackUnPackerRec {
+SCM_HEADER;
+msgpack_unpacker h;
+} ScmMsgpackUnPacker;
+
+SCM_CLASS_DECL(Scm_MsgpackUnPackerClass);
+#define SCM_CLASS_MSGPACK_UNPACKER (&Scm_MsgpackUnPackerClass)
+#define SCM_MSGPACK_UNPACKER(obj) ((ScmMsgpackUnPacker*)(obj))
+#define SCM_MSGPACK_UNPACKER_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_UNPACKER))
+
+typedef struct ScmMsgpackZoneRec {
+SCM_HEADER;
+msgpack_zone h;
+} ScmMsgpackZone;
+
+SCM_CLASS_DECL(Scm_MsgpackZoneClass);
+#define SCM_CLASS_MSGPACK_ZONE (&Scm_MsgpackZoneClass)
+#define SCM_MSGPACK_ZONE(obj) ((ScmMsgpackZone*)(obj))
+#define SCM_MSGPACK_ZONE_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_ZONE))
+
+
+SCM_CLASS_DECL(Scm_LongLongClass);
+#define SCM_CLASS_LONGLONG (&Scm_LongLongClass)
+#define SCM_LONGLONG(obj) ((long long)(obj))
+#define SCM_LONGLONG_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_LONGLONG))
+
+SCM_CLASS_DECL(Scm_ULongLongClass);
+#define SCM_CLASS_ULONGLONG (&Scm_ULongLongClass)
+#define SCM_ULONGLONG(obj) ((unsigned long long)(obj))
+#define SCM_ULONGLONG_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_ULONGLONG))
+
+SCM_CLASS_DECL(Scm_Int64Class);
+#define SCM_CLASS_INT64 (&Scm_Int64Class)
+#define SCM_INT64(obj) ((int64_t)(obj))
+#define SCM_INT64_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_INT64))
+
+SCM_CLASS_DECL(Scm_UInt64Class);
+#define SCM_CLASS_UINT64 (&Scm_UInt64Class)
+#define SCM_UINT64(obj) ((uint64_t)(obj))
+#define SCM_UINT64_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_UINT64))
+
+SCM_CLASS_DECL(Scm_SizeTClass);
+#define SCM_CLASS_SIZET (&Scm_SizeTClass)
+#define SCM_SIZET(obj) ((size_t)(obj))
+#define SCM_SIZET_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_SIZET))
 
 /* Epilogue */
 SCM_DECL_END

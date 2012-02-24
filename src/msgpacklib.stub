@@ -10,6 +10,8 @@
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
 
+(include "msgpack.types")
+
 (define-cproc msgpack-version () ::<const-cstring>
   (result (msgpack_version)))
 
@@ -18,6 +20,74 @@
 
 (define-cproc msgpack-version-minor () ::<int>
   (result (msgpack_version_minor)))
+
+(define-cclass <msgpack-object-array> :base "ScmMsgpackObjectArray*" "Scm_MsgpackObjectArrayClass"
+  ()
+  ()
+  [allocator
+   (let* ([ctx::ScmMsgpackObjectArray* (SCM_ALLOCATE ScmMsgpackObjectArray klass)])
+     (SCM_SET_CLASS ctx klass)
+     (return (SCM_OBJ ctx)))])
+
+
+(define-cclass <msgpack-object-map> :base "ScmMsgpackObjectMap*" "Scm_MsgpackObjectMapClass"
+  ()
+  ()
+  [allocator
+   (let* ([ctx::ScmMsgpackObjectMap* (SCM_ALLOCATE ScmMsgpackObjectMap klass)])
+     (SCM_SET_CLASS ctx klass)
+     (return (SCM_OBJ ctx)))])
+
+
+(define-cclass <msgpack-object-raw> :base "ScmMsgpackObjectRaw*" "Scm_MsgpackObjectRawClass"
+  ()
+  ()
+  [allocator
+   (let* ([ctx::ScmMsgpackObjectRaw* (SCM_ALLOCATE ScmMsgpackObjectRaw klass)])
+     (SCM_SET_CLASS ctx klass)
+     (return (SCM_OBJ ctx)))])
+
+
+(define-cclass <msgpack-object-union> :base "ScmMsgpackObjectUnion*" "Scm_MsgpackObjectUnionClass"
+  ()
+  ()
+  [allocator
+   (let* ([ctx::ScmMsgpackObjectUnion* (SCM_ALLOCATE ScmMsgpackObjectUnion klass)])
+     (SCM_SET_CLASS ctx klass)
+     (return (SCM_OBJ ctx)))])
+
+
+(define-cclass <msgpack-object> :base "ScmMsgpackObject*" "Scm_MsgpackObjectClass"
+  ()
+  ()
+  [allocator
+   (let* ([ctx::ScmMsgpackObject* (SCM_ALLOCATE ScmMsgpackObject klass)])
+     (SCM_SET_CLASS ctx klass)
+     (return (SCM_OBJ ctx)))])
+
+(define-cclass <msgpack-object-kv> :base "ScmMsgpackObjectKv*" "Scm_MsgpackObjectKvClass"
+  ()
+  ()
+  [allocator
+   (let* ([ctx::ScmMsgpackObjectKv* (SCM_ALLOCATE ScmMsgpackObjectKv klass)])
+     (SCM_SET_CLASS ctx klass)
+     (return (SCM_OBJ ctx)))])
+
+(define-cclass <msgpack-packer> :base "ScmMsgpackPacker*" "Scm_MsgpackPackerClass"
+  ()
+  ()
+  [allocator
+   (let* ([ctx::ScmMsgpackPacker* (SCM_ALLOCATE ScmMsgpackPacker klass)])
+     (SCM_SET_CLASS ctx klass)
+     (return (SCM_OBJ ctx)))])
+
+(define-cclass <msgpack-zone> :base "ScmMsgpackZone*" "Scm_MsgpackZoneClass"
+  ()
+  ()
+  [allocator
+   (let* ([ctx::ScmMsgpackZone* (SCM_ALLOCATE ScmMsgpackZone klass)])
+     (SCM_SET_CLASS ctx klass)
+     (return (SCM_OBJ ctx)))])
 
 ;; Local variables:
 ;; mode: scheme

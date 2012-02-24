@@ -9,20 +9,6 @@
  * your C function definitions.
  */
 
-ScmClass *MsgPackObjectArrayClass;
-ScmClass *MsgPackObjectClass;
-ScmClass *MsgPackPackerClass;
-ScmClass *MsgPackUnPackerClass;
-ScmClass *MsgPackSbufferClass;
-ScmClass *MsgPackVRefBufferClass;
-ScmClass *MsgPackZoneClass;
-
-ScmClass *ScmInt64Class;
-ScmClass *ScmUInt64Class;
-ScmClass *ScmLongLongClass;
-ScmClass *ScmULongLongClass;
-ScmClass *ScmSizeTClass;
-
 /*
  * Module initialization function.
  */
@@ -42,56 +28,15 @@ void Scm_Init_msgpack(void)
     SCM_INIT_EXTENSION(msgpack);
 
     /* Create the module if it doesn't exist yet. */
-    mod = SCM_MODULE(SCM_FIND_MODULE("messagepack", TRUE));
+    mod = SCM_MODULE(SCM_FIND_MODULE("msgpack", TRUE));
 
-    MsgPackSbufferClass =
-        Scm_MakeForeignPointerClass(mod, "<msgpack-sbuffer>",
-                                    NULL,
-                                    NULL,
-                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
-
-    MsgPackPackerClass =
-        Scm_MakeForeignPointerClass(mod, "<msgpack-packer>",
-                                    NULL,
-                                    NULL,
-                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
-
-    MsgPackUnPackerClass =
-        Scm_MakeForeignPointerClass(mod, "<msgpack-unpacker>",
-                                    NULL,
-                                    NULL,
-                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
-
-    MsgPackObjectClass =
-        Scm_MakeForeignPointerClass(mod, "<msgpack-object>",
-                                    NULL,
-                                    NULL,
-                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
-
-    MsgPackVRefBufferClass =
-        Scm_MakeForeignPointerClass(mod, "<msgpack-vrefbuffer>",
-                                    NULL,
-                                    NULL,
-                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
-
-    MsgPackZoneClass =
-        Scm_MakeForeignPointerClass(mod, "<msgpack-zone>",
-                                    NULL,
-                                    NULL,
-                                    SCM_FOREIGN_POINTER_KEEP_IDENTITY|SCM_FOREIGN_POINTER_MAP_NULL);
 
     /* Register stub-generated procedures */
     Scm_Init_msgpacklib(mod);
-
     Scm_Init_msgpack_object(mod);
-
     Scm_Init_msgpack_pack(mod);
-
     Scm_Init_msgpack_sbuffer(mod);
-
     Scm_Init_msgpack_unpack(mod);
-
     Scm_Init_msgpack_vrefbuffer(mod);
-
     Scm_Init_msgpack_zone(mod);
 }
