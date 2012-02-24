@@ -2,11 +2,11 @@
 ;;; msgpack
 ;;;
 
-(define-module messagepack.zone
-  (export test-messagepack ;; dummy
+(define-module msgpack.zone
+  (export test-msgpack ;; dummy
           )
   )
-(select-module messagepack.zone)
+(select-module msgpack.zone)
 
 ;; Loads extension
 ;;(dynamic-load "msgpack-zone")

@@ -20,7 +20,13 @@ INSTALL        = @GAUCHE_INSTALL@ -C
 SOEXT  = @SOEXT@
 OBJEXT = @OBJEXT@
 EXEEXT = @EXEEXT@
-LOCAL_PATHS = @LOCAL_PATHS@
+LOCAL_PATHS = @LOCAL_PATHS@ @MSGPACK_DIR@
+MSGPACK_CPPFLAGS = @MSGPACK_CPPFLAGS@
+MSGPACK_LDFLAGS = @MSGPACK_LDFLAGS@
+
+CPPFLAGS       = -I. @CPPFLAGS@ @MSGPACK_CPPFLAGS@ @GAUCHE_HPDF_DEBUG@
+LDFLAGS        = @MSGPACK_LDFLAGS@ @LDFLAGS@ 
+LIBS           = @MSGPACK_LIBS@ @LIBS@ 
 
 # Module-specific stuff
 PACKAGE   = msgpack
@@ -44,11 +50,7 @@ all : $(TARGET)
 
 gauche--msgpack.$(SOEXT): $(msgpack_SRCS)
 	$(GAUCHE_PACKAGE) compile \
-	  --local=$(LOCAL_PATHS) --verbose gauche--msgpack $(msgpack_SRCS)
-
-check : all
-	@rm -f test.log
-	$(GOSH) -I. -I$(srcdir) $(srcdir)/test.scm > test.log
+	  --local=$(LOCAL_PATHS) --ldflags="$(LDFLAGS)" --libs="$(LIBS)" --cflags="$(CPPFLAGS)" --verbose gauche--msgpack $(msgpack_SRCS)
 
 install : all
 	$(INSTALL) -m 444 -T $(GAUCHE_PKGINCDIR) $(HEADERS)

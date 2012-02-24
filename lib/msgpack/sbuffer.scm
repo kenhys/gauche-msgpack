@@ -2,11 +2,11 @@
 ;;; msgpack
 ;;;
 
-(define-module messagepack.sbuffer
-  (export test-messagepack ;; dummy
+(define-module msgpack.sbuffer
+  (export test-msgpack ;; dummy
           )
   )
-(select-module messagepack.sbuffer)
+(select-module msgpack.sbuffer)
 
 ;; Loads extension
 ;;(dynamic-load "msgpack-sbuffer")

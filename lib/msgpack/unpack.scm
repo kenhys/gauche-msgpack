@@ -2,11 +2,11 @@
 ;;; msgpack
 ;;;
 
-(define-module messagepack.unpack
-  (export test-messagepack ;; dummy
+(define-module msgpack.unpack
+  (export test-msgpack ;; dummy
           )
   )
-(select-module messagepack.unpack)
+(select-module msgpack.unpack)
 
 ;; Loads extension
 ;;(dynamic-load "msgpack-unpack")

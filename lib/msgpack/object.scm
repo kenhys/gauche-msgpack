@@ -2,10 +2,10 @@
 ;;; msgpack
 ;;;
 
-(define-module messagepack.object
+(define-module msgpack.object
   (export-all)
   )
-(select-module messagepack.object)
+(select-module msgpack.object)
 
 ;; Loads extension
 ;;(dynamic-load "msgpack-object")
