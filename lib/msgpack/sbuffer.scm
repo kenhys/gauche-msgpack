@@ -14,7 +14,8 @@
 ;;
 ;; Put your Scheme definitions here
 ;;
-
+(define-method sbuffer-new ()
+  (msgpack-sbuffer-new))
 
 ;; Epilogue
 (provide "msgpack.sbuffer")

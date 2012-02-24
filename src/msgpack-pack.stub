@@ -17,11 +17,13 @@
   (let* ()
     (Scm_Error "msgpack-packer-init is not supported.")))
 
-;;  msgpack_packer* msgpack_packer_new(void* data, msgpack_packer_write callback);
 (define-cproc msgpack-packer-new
-  (data :optional (proc msgpack-packer-write)) ::<void>
-  (let* ()
-    (Scm_Error "msgpack-packer-new is not supported.")))
+  (data :optional (proc msgpack-packer-write)) ::<msgpack-packer>
+  (let* ([pack::ScmMsgpackPacker* (SCM_NEW ScmMsgpackPacker)])
+    (SCM_SET_CLASS pack SCM_CLASS_MSGPACK_PACKER)
+    (set! (-> pack h) (msgpack_packer_new data NULL))
+    (result pack)))
+
 
 ;;  void msgpack_packer_free(msgpack_packer* pk);
 (define-cproc msgpack-packer-free 

@@ -113,6 +113,17 @@ SCM_CLASS_DECL(Scm_MsgpackZoneClass);
 #define SCM_MSGPACK_ZONE_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_ZONE))
 
 
+typedef struct ScmMsgpackSbufferRec {
+SCM_HEADER;
+msgpack_sbuffer *h;
+} ScmMsgpackSbuffer;
+
+SCM_CLASS_DECL(Scm_MsgpackSbufferClass);
+#define SCM_CLASS_MSGPACK_SBUFFER (&Scm_MsgpackSbufferClass)
+#define SCM_MSGPACK_SBUFFER(obj) ((ScmMsgpackSbuffer*)(obj))
+#define SCM_MSGPACK_SBUFFER_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_SBUFFER))
+
+
 SCM_CLASS_DECL(Scm_LongLongClass);
 #define SCM_CLASS_LONGLONG (&Scm_LongLongClass)
 #define SCM_LONGLONG(obj) ((long long)(obj))

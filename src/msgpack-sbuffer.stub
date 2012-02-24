@@ -7,33 +7,43 @@
 #include \"msgpacklib.h\"
 "
 
+(include "msgpack.types")
+
 ;; The following entry is a dummy one.
 ;; Replace it for your definitions.
 
-"#if 0
+
+(define-cproc msgpack-sbuffer-init
+  (sbuf::<msgpack-sbuffer>) ::<void>
+  (msgpack_sbuffer_init (-> sbuf h)))
+
+(define-cproc msgpack-sbuffer-destroy
+  (sbuf::<msgpack-sbuffer>) ::<void>
+  (msgpack_sbuffer_destroy (-> sbuf h)))
+
+(define-cproc msgpack-sbuffer-new () ::<msgpack-sbuffer>
+  (let* ([sbuffer::ScmMsgpackSbuffer* (SCM_NEW ScmMsgpackSbuffer)])
+    (SCM_SET_CLASS sbuffer SCM_CLASS_MSGPACK_SBUFFER)
+    "sbuffer->h = (msgpack_sbuffer*)calloc(1, sizeof(msgpack_sbuffer));"
+    (result sbuffer)))
 
 ;;; static inline void msgpack_sbuffer_init(msgpack_sbuffer* sbuf)
-(define-cproc msgpack-sbuffer-init (sbuf::<msgpack-sbuffer>)
-  (body <void>
-        (msgpack_sbuffer_init sbuf)))
-
-;; static inline void msgpack_sbuffer_destroy(msgpack_sbuffer* sbuf)
-(define-cproc msgpack-sbuffer-destroy (sbuf::<msgpack-sbuffer>)
-  (body <void>
-        (msgpack_sbuffer_destroy sbuf)))
 
 ;; TBD
 ;; static inline int msgpack_sbuffer_write(void* data, const char* buf, unsigned int len)
-;; (define-cproc msgpack-sbuffer-write (data buf len)
-;;   (body <int>
-;;         ""))
+(define-cproc msgpack-sbuffer-write
+  (data buf len) ::<int>
+  (let* ()
+    (cond ([SCM_STRINGP buf]
+	   )
+	  (else (Scm_Warn "string required, but got ~x" buf)))
+    ))
 
 ;; static inline char* msgpack_sbuffer_release(msgpack_sbuffer* sbuf)
 (define-cproc msgpack-sbuffer-release (sbuf::<msgpack-sbuffer>)
   (body <const-cstring>
         (msgpack_sbuffer_release sbuf)))
 
-#endif"
 
 ;; Local variables:
 ;; mode: scheme

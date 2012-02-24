@@ -89,6 +89,14 @@
      (SCM_SET_CLASS ctx klass)
      (return (SCM_OBJ ctx)))])
 
+(define-cclass <msgpack-sbuffer> :base "ScmMsgpackSbuffer*" "Scm_MsgpackSbufferClass"
+  ()
+  ()
+  [allocator
+   (let* ([ctx::ScmMsgpackSbuffer* (SCM_ALLOCATE ScmMsgpackSbuffer klass)])
+     (SCM_SET_CLASS ctx klass)
+     (return (SCM_OBJ ctx)))])
+
 ;; Local variables:
 ;; mode: scheme
 ;; end:

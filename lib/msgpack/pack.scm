@@ -14,6 +14,12 @@
 ;;
 ;; Put your Scheme definitions here
 ;;
+
+
+(define-method packer-new 
+  (data :optional callback) ::<msgpack-packer>
+  (msgpack-packer-new data callback))
+
 ;; typedef int (*msgpack_packer_write)(void* data, const char* buf, unsigned int len);
 
 ;; typedef struct msgpack_packer {
