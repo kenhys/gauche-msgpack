@@ -9,11 +9,14 @@
 (select-module msgpack.unpack)
 
 ;; Loads extension
-;;(dynamic-load "msgpack-unpack")
+(dynamic-load "gauche--msgpack" :init-function "Scm_Init_msgpack")
 
 ;;
 ;; Put your Scheme definitions here
 ;;
+
+;; Epilogue
+(provide "msgpack.unpack")
 
 
 

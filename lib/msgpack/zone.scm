@@ -9,7 +9,7 @@
 (select-module msgpack.zone)
 
 ;; Loads extension
-;;(dynamic-load "msgpack-zone")
+(dynamic-load "gauche--msgpack" :init-function "Scm_Init_msgpack")
 
 ;;
 ;; Put your Scheme definitions here

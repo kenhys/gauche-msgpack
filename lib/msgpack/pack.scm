@@ -3,13 +3,13 @@
 ;;;
 
 (define-module msgpack.pack
-  (extend msgpack) ;; dummy
+  (extend msgpack)
   (export-all))
 
 (select-module msgpack.pack)
 
 ;; Loads extension
-;;(dynamic-load "msgpack-pack")
+(dynamic-load "gauche--msgpack" :init-function "Scm_Init_msgpack")
 
 ;;
 ;; Put your Scheme definitions here
@@ -17,7 +17,7 @@
 
 
 (define-method packer-new 
-  (data :optional callback) ::<msgpack-packer>
+  (data :optional callback)
   (msgpack-packer-new data callback))
 
 ;; typedef int (*msgpack_packer_write)(void* data, const char* buf, unsigned int len);
@@ -74,37 +74,39 @@
 ;; ;; static int msgpack_pack_false(msgpack_packer* pk);
 
 ;; ;; static int msgpack_pack_array(msgpack_packer* pk, unsigned int n);
+(define-method pack-array ((self <msgpack-packer>) n)
+  (msgpack-pack-array self n))
 
 ;; ;; static int msgpack_pack_map(msgpack_packer* pk, unsigned int n);
 
-;; (define msgpack_pack_raw
+(define-method pack-raw ((self <msgpack-packer>) n)
+  (msgpack-pack-raw self n))
+
+(define-method pack-raw-body ((self <msgpack-packer>) obj n)
+  (msgpack-pack-raw-body self obj n))
+
+;; (define-method msgpack-pack-object
 ;;   (error ""))
 
-;; (define msgpack-pack-raw-body
+;; (define-method  (msgpack-pack-inline-func)
 ;;   (error ""))
 
-;; (define msgpack-pack-object
+;; (define-method (msgpack-pack-inline-func-cint)
 ;;   (error ""))
 
-;; (define  (msgpack-pack-inline-func)
+;; (define-method (msgpack-pack-user)
 ;;   (error ""))
 
-;; (define (msgpack-pack-inline-func-cint)
+;; (define-method (msgpack-pack-append-buffer)
 ;;   (error ""))
 
-;; (define (msgpack-pack-user)
+;; (define-method (msgpack-packer-init)
 ;;   (error ""))
 
-;; (define (msgpack-pack-append-buffer)
+;; (define-method (msgpack-packer-new data callback)
 ;;   (error ""))
 
-;; (define (msgpack-packer-init)
-;;   (error ""))
-
-;; (define (msgpack-packer-new data callback)
-;;   (error ""))
-
-;; (define (msgpack-packer-free pk)
+;; (define-method (msgpack-packer-free pk)
 ;;   (error ""))
 
 

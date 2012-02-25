@@ -9,7 +9,7 @@
 (select-module msgpack.object)
 
 ;; Loads extension
-;;(dynamic-load "msgpack-object")
+(dynamic-load "gauche--msgpack" :init-function "Scm_Init_msgpack")
 
 ;;
 ;; Put your Scheme definitions here
