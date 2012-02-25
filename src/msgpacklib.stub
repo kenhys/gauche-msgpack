@@ -81,6 +81,22 @@
      (SCM_SET_CLASS ctx klass)
      (return (SCM_OBJ ctx)))])
 
+(define-cclass <msgpack-unpacked> :base "ScmMsgpackUnPacked*" "Scm_MsgpackUnPackedClass"
+  ()
+  ()
+  [allocator
+   (let* ([ctx::ScmMsgpackUnPacked* (SCM_ALLOCATE ScmMsgpackUnPacked klass)])
+     (SCM_SET_CLASS ctx klass)
+     (return (SCM_OBJ ctx)))])
+
+(define-cclass <msgpack-unpacker> :base "ScmMsgpackUnPacker*" "Scm_MsgpackUnPackerClass"
+  ()
+  ()
+  [allocator
+   (let* ([ctx::ScmMsgpackUnPacker* (SCM_ALLOCATE ScmMsgpackUnPacker klass)])
+     (SCM_SET_CLASS ctx klass)
+     (return (SCM_OBJ ctx)))])
+
 (define-cclass <msgpack-zone> :base "ScmMsgpackZone*" "Scm_MsgpackZoneClass"
   ()
   ()

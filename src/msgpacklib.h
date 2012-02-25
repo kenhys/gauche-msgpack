@@ -92,9 +92,19 @@ SCM_CLASS_DECL(Scm_MsgpackPackerClass);
 #define SCM_MSGPACK_PACKER(obj) ((ScmMsgpackPacker*)(obj))
 #define SCM_MSGPACK_PACKER_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_PACKER))
 
+typedef struct ScmMsgpackUnPackedRec {
+SCM_HEADER;
+msgpack_unpacked *h;
+} ScmMsgpackUnPacked;
+
+SCM_CLASS_DECL(Scm_MsgpackUnPackedClass);
+#define SCM_CLASS_MSGPACK_UNPACKED (&Scm_MsgpackUnPackedClass)
+#define SCM_MSGPACK_UNPACKED(obj) ((ScmMsgpackUnPacked*)(obj))
+#define SCM_MSGPACK_UNPACKED_P(obj) (SCM_XTYPEP(obj, SCM_CLASS_MSGPACK_UNPACKED))
+
 typedef struct ScmMsgpackUnPackerRec {
 SCM_HEADER;
-msgpack_unpacker h;
+msgpack_unpacker *h;
 } ScmMsgpackUnPacker;
 
 SCM_CLASS_DECL(Scm_MsgpackUnPackerClass);

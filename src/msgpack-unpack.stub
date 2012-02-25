@@ -13,6 +13,12 @@
 (define-enum MSGPACK_UNPACK_CONTINUE)
 (define-enum MSGPACK_UNPACK_PARSE_ERROR)
 
+(define-cproc msgpack-unpack-next
+  (unpacked::<msgpack-unpacked> sbuffer::<msgpack-sbuffer>) ::<boolean>
+  (let* ([sbuf::msgpack_sbuffer* (-> sbuffer h)])
+    (Scm_Warn "msgpack-unpack-next")
+    (result (msgpack_unpack_next (-> unpacked h) (-> sbuf data) (-> sbuf size) NULL))))
+
 
 "#if 0
 
@@ -101,8 +107,11 @@
 
 #endif"
 
-;; The following entry is a dummy one.
-;; Replace it for your definitions.
+
+(define-cproc msgpack-unpacked-init
+  (unpacked::<msgpack-unpacked>) ::<void>
+  (msgpack_unpacked_init (-> unpacked h)))
+
 
 ;; Local variables:
 ;; mode: scheme

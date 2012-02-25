@@ -33,7 +33,12 @@
 (define-type <msgpack-object-kv> "msgpack_object_kv*" #f
   "SCM_MSGPACK_OBJECT_KV_P" "SCM_MSGPACK_OBJECT_KV")
 
-
+;;
+;; msgpack-unpack.h
+;;
+(define-type <msgpack-unpacked>
+  "ScmMsgpackUnPacked*" #f
+  "SCM_MSGPACK_UNPACKED_P" "SCM_MSGPACK_UNPACKED")
 (define-type <msgpack-unpacker>
   "ScmMsgpackUnPacker*" #f
   "SCM_MSGPACK_UNPACKER_P" "SCM_MSGPACK_UNPACKER")

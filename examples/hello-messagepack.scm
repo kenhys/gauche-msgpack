@@ -3,11 +3,15 @@
 (use gauche.interactive)
 (use msgpack)
 
+(define (sbuffer-writer-proc port)
+  (d port))
 
 (define (main args)
   (let* ([buffer (sbuffer-new)]
-	 [pk (packer-new buffer msgpack-sbuffer-write)])
+	 [pk (packer-new buffer sbuffer-writer-proc)])
     
+    (d buffer)
+    (d pk)
     ;; serialized ["Hello", "MessagePack"]
     (pack-array pk 2)
     (pack-raw pk 5)
@@ -21,6 +25,7 @@
       (unpacked-init msg)
       
       (unpack-next msg buffer)
+      (exit)
       
       ;; prints
       (set! obj (slot-ref! msg 'data))
