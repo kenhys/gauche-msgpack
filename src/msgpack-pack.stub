@@ -17,11 +17,36 @@
   (let* ()
     (Scm_Error "msgpack-packer-init is not supported.")))
 
+;; implement bridge
+"
+static ScmObj g_msgpackPackerWriteProc = SCM_NIL;
+static ScmObj g_msgpackPackerWritePort = SCM_NIL;
+
+int msgpack_packer_write_bridge(void *data, const char* buf, unsigned int len)
+{
+  ScmObj proc = SCM_OBJ(g_msgpackPackerWriteProc);
+  ScmObj port = SCM_OBJ(g_msgpackPackerWritePort);
+  if (SCM_PROCEDUREP(proc)) {
+    if (SCM_PROCEDURE_TAKE_NARG_P(proc, 1)) {
+    } else {
+      Scm_Error(\"procedure must take 1 argument, but got %S\", proc);
+    }
+  }
+  return 0;
+}
+
+"
+
+
 (define-cproc msgpack-packer-new
-  (data :optional (proc msgpack-packer-write)) ::<msgpack-packer>
+  (data :optional proc) ::<msgpack-packer>
   (let* ([pack::ScmMsgpackPacker* (SCM_NEW ScmMsgpackPacker)])
     (SCM_SET_CLASS pack SCM_CLASS_MSGPACK_PACKER)
-    (set! (-> pack h) (msgpack_packer_new data NULL))
+    ;;
+    (set! g_msgpackPackerWriteProc proc)
+    
+    ;;
+    (set! (-> pack h) (msgpack_packer_new data msgpack_packer_write_bridge))
     (result pack)))
 
 
@@ -150,28 +175,35 @@
 (define-cproc msgpack-pack-false (pk::<msgpack-packer>)
   (body <int> (result (msgpack_pack_false (-> pk h)))))
 
-;;  msgpack_pack_array(msgpack_packer* pk, unsigned int n);
-(define-cproc msgpack-pack-array (pk::<msgpack-packer>
-                                  n::<uint>)
-  (body <int> (result (msgpack_pack_array (-> pk h) n))))
+(define-cproc msgpack-pack-array
+  (pk::<msgpack-packer> n::<uint>) ::<int>
+  (let* () 
+    (Scm_Warn "msgpack-pack-array")
+    (result (msgpack_pack_array (-> pk h) n))))
 
 ;;  msgpack_pack_map(msgpack_packer* pk, unsigned int n);
 (define-cproc msgpack-pack-map
   (pk::<msgpack-packer>
    n::<uint>) ::<int>
    (let* ()
+     (.if DEBUG (DEBUG_FUNC_NAME "msgpack-pack-map"))
      (result (msgpack_pack_map (-> pk h) n))))
 
 ;;  msgpack_pack_raw(msgpack_packer* pk, size_t l);
-;; (define-cproc msgpack-pack-raw (pk::<msgpack-packer>
-;;                                 l::<size>)
-;;   (body <int> (result (msgpack_pack_raw (-> pk h) (* l)))))
+(define-cproc msgpack-pack-raw
+  (pk::<msgpack-packer> l::<int>) ::<int>
+  (result (msgpack_pack_raw (-> pk h) l)))
 
 ;; TBD.
 ;;  msgpack_pack_raw_body(msgpack_packer* pk, const void* b, size_t l);
-;; (define-cproc msgpack-pack-raw-body (pk::<msgpack-packer>
-;;                                      l::<int>)
-;;   (body <int> (result (msgpack_pack_raw (-> pk h) l))))
+(define-cproc msgpack-pack-raw-body
+  (pk::<msgpack-packer> obj :optional size::<int>) ::<int>
+  (cond ([SCM_STRINGP obj]
+	 (result (msgpack_pack_raw_body
+		  (-> pk h)
+		  (cast (void*) (SCM_STRING_BODY_START (SCM_STRING_BODY obj))) size)))
+	(else 
+	 (result (msgpack_pack_raw_body (-> pk h) obj size)))))
 
 ;; int msgpack_pack_object(msgpack_packer* pk, msgpack_object d);
 (define-cproc msgpack-pack-object
