@@ -59,7 +59,7 @@ dnl Add your macro calls to check existence of programs, if you have any.
 dnl Check for libraries
 dnl Add your macro calls to check required libraries, if you have any.
 
-m4_include([msgpack.m4])
+m4_include([m4/msgpack.m4])
 
 # options for configure scripts
 GAUCHE_MSGPACK_DEBUG=""
