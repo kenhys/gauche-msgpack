@@ -24,7 +24,8 @@
 (define-cproc msgpack-sbuffer-new () ::<msgpack-sbuffer>
   (let* ([sbuffer::ScmMsgpackSbuffer* (SCM_NEW ScmMsgpackSbuffer)])
     (SCM_SET_CLASS sbuffer SCM_CLASS_MSGPACK_SBUFFER)
-    "sbuffer->h = (msgpack_sbuffer*)calloc(1, sizeof(msgpack_sbuffer));"
+    (set! (-> sbuffer h) (cast (msgpack_sbuffer*) (calloc 1 (sizeof msgpack_sbuffer))))
+    (Scm_Warn "calloc sbuffer->h %p" (-> sbuffer h))
     (result sbuffer)))
 
 ;;; static inline void msgpack_sbuffer_init(msgpack_sbuffer* sbuf)

@@ -16,7 +16,12 @@
 (define-cproc msgpack-unpack-next
   (unpacked::<msgpack-unpacked> sbuffer::<msgpack-sbuffer>) ::<boolean>
   (let* ([sbuf::msgpack_sbuffer* (-> sbuffer h)])
-    (Scm_Warn "msgpack-unpack-next")
+    (.if GAUCHE_MSGPACK_DEBUG "msgpack-unpack-next")
+    (Scm_Warn "%p" sbuf)
+    (Scm_Warn "%p" (-> sbuf data))
+    (Scm_Warn "%p" (-> sbuf size))
+    (if (= sbuf NULL)
+	(Scm_Error "non NULL msgpack_sbuffer* required, but got %S" sbuf))
     (result (msgpack_unpack_next (-> unpacked h) (-> sbuf data) (-> sbuf size) NULL))))
 
 
@@ -110,7 +115,10 @@
 
 (define-cproc msgpack-unpacked-init
   (unpacked::<msgpack-unpacked>) ::<void>
-  (msgpack_unpacked_init (-> unpacked h)))
+  (let* ([unpackedc::msgpack_unpacked* (& (* (-> unpacked h)))])
+    (Scm_Warn "unpacked:%p" (-> unpacked h))
+    (Scm_Warn "unpackedc:%p" unpackedc)
+    (msgpack_unpacked_init (-> unpacked h))))
 
 
 ;; Local variables:
