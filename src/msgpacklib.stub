@@ -79,6 +79,7 @@
   [allocator
    (let* ([ctx::ScmMsgpackPacker* (SCM_ALLOCATE ScmMsgpackPacker klass)])
      (SCM_SET_CLASS ctx klass)
+     (set! (-> ctx h) (calloc 1 (sizeof msgpack_packer)))
      (return (SCM_OBJ ctx)))])
 
 (define-cclass <msgpack-unpacked> :base "ScmMsgpackUnPacked*" "Scm_MsgpackUnPackedClass"
@@ -87,6 +88,7 @@
   [allocator
    (let* ([ctx::ScmMsgpackUnPacked* (SCM_ALLOCATE ScmMsgpackUnPacked klass)])
      (SCM_SET_CLASS ctx klass)
+     (set! (-> ctx h) (calloc 1 (sizeof msgpack_unpacked)))
      (return (SCM_OBJ ctx)))])
 
 (define-cclass <msgpack-unpacker> :base "ScmMsgpackUnPacker*" "Scm_MsgpackUnPackerClass"
@@ -107,10 +109,14 @@
 
 (define-cclass <msgpack-sbuffer> :base "ScmMsgpackSbuffer*" "Scm_MsgpackSbufferClass"
   ()
-  ()
+  (;; slot
+   (data :type <const-cstring>? :c-name "h->data")
+   (size :type <int> :c-name "h->size")
+   (alloc :type <int> :c-name "h->alloc"))
   [allocator
    (let* ([ctx::ScmMsgpackSbuffer* (SCM_ALLOCATE ScmMsgpackSbuffer klass)])
      (SCM_SET_CLASS ctx klass)
+     (set! (-> ctx h) (calloc 1 (sizeof msgpack_sbuffer)))
      (return (SCM_OBJ ctx)))])
 
 ;; Local variables:
