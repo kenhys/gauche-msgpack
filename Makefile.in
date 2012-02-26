@@ -43,6 +43,9 @@ msgpack_SRCS = $(srcdir)/msgpack.c $(srcdir)/msgpacklib.stub $(srcdir)/msgpack-o
 all :
 	cd src; $(MAKE) all
 
+demo :
+	cd examples; $(MAKE) demo
+
 gauche--msgpack.$(SOEXT): $(msgpack_SRCS)
 	$(GAUCHE_PACKAGE) compile \
 	  --local=$(LOCAL_PATHS) --verbose msgpack $(msgpack_SRCS)

@@ -84,7 +84,7 @@ $GAUCHE_PACKAGE make-gpd "$PACKAGE_NAME" \
 
 dnl Output
 echo $PACKAGE_VERSION > VERSION
-AC_OUTPUT(Makefile src/Makefile test/Makefile)
+AC_OUTPUT(Makefile src/Makefile test/Makefile examples/Makefile)
 
 AC_MSG_RESULT(
 [
