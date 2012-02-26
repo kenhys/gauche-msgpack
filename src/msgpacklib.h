@@ -22,7 +22,7 @@ SCM_DECL_BEGIN
 
 typedef struct ScmMsgpackObjectArrayRec {
 SCM_HEADER;
-msgpack_object_array h;
+msgpack_object_array *h;
 } ScmMsgpackObjectArray;
 
 SCM_CLASS_DECL(Scm_MsgpackObjectArrayClass);
@@ -33,7 +33,7 @@ SCM_CLASS_DECL(Scm_MsgpackObjectArrayClass);
 
 typedef struct ScmMsgpackObjectMapRec {
 SCM_HEADER;
-msgpack_object_map h;
+msgpack_object_map *h;
 } ScmMsgpackObjectMap;
 
 SCM_CLASS_DECL(Scm_MsgpackObjectMapClass);
@@ -43,7 +43,7 @@ SCM_CLASS_DECL(Scm_MsgpackObjectMapClass);
 
 typedef struct ScmMsgpackObjectRawRec {
 SCM_HEADER;
-msgpack_object_raw h;
+msgpack_object_raw *h;
 } ScmMsgpackObjectRaw;
 
 SCM_CLASS_DECL(Scm_MsgpackObjectRawClass);
@@ -53,7 +53,7 @@ SCM_CLASS_DECL(Scm_MsgpackObjectRawClass);
 
 typedef struct ScmMsgpackObjectUnionRec {
 SCM_HEADER;
-msgpack_object_union h;
+msgpack_object_union *h;
 } ScmMsgpackObjectUnion;
 
 SCM_CLASS_DECL(Scm_MsgpackObjectUnionClass);
@@ -63,7 +63,7 @@ SCM_CLASS_DECL(Scm_MsgpackObjectUnionClass);
 
 typedef struct ScmMsgpackObjectRec {
 SCM_HEADER;
-msgpack_object h;
+msgpack_object *h;
 } ScmMsgpackObject;
 
 SCM_CLASS_DECL(Scm_MsgpackObjectClass);
@@ -73,7 +73,7 @@ SCM_CLASS_DECL(Scm_MsgpackObjectClass);
 
 typedef struct ScmMsgpackObjectKvRec {
 SCM_HEADER;
-msgpack_object_kv h;
+msgpack_object_kv *h;
 } ScmMsgpackObjectKv;
 
 SCM_CLASS_DECL(Scm_MsgpackObjectKvClass);
@@ -114,7 +114,7 @@ SCM_CLASS_DECL(Scm_MsgpackUnPackerClass);
 
 typedef struct ScmMsgpackZoneRec {
 SCM_HEADER;
-msgpack_zone h;
+msgpack_zone *h;
 } ScmMsgpackZone;
 
 SCM_CLASS_DECL(Scm_MsgpackZoneClass);
